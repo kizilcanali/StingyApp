@@ -1,6 +1,6 @@
-package com.alikizilcan.stingyapp.data.model
+package com.alikizilcan.stingyapp.infra
 
-data class Category(
+class Category(
     val name: String,
     val icon: Int?,
     val color: String?
