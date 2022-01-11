@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">StingyApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bottom_nav_account">Account</string>
+    <string name="bottom_nav_transactions">Transactions</string>
+    <string name="bottom_nav_future">Future</string>
+    <string name="tl_text">TL</string>
 </resources>
