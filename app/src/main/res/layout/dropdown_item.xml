@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="5dp">
+
+
+        <ImageView
+            android:id="@+id/categoryIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/transactionNameTextdeneme"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/categoryIcon"
+            app:layout_constraintTop_toTopOf="@id/categoryIcon"
+            app:layout_constraintBottom_toBottomOf="@id/categoryIcon"
+            android:layout_marginStart="5dp"
+            tools:text="Transportation"
+            android:text="Transportation"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

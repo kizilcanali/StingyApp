@@ -12,7 +12,7 @@ class TransactionEntityToTransactionMapper @Inject constructor(){
             transactionName = entity.transactionName.orEmpty(),
             transactionAmount = entity.transactionAmount.orZero(),
             transactionDate = entity.transactionDate.orEmpty(),
-            category = "entity.transactionCategory",
+            category = entity.transactionCategory,
             transactionType = "entity.transactionType",
             //category = entity.transactionCategory,
             //transactionType = entity.transactionType,

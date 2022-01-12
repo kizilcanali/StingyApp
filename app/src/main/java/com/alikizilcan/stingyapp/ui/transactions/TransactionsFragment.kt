@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
 import com.alikizilcan.stingyapp.databinding.FragmentTransactionsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransactionsFragment : Fragment() {
 
     private lateinit var _binding: FragmentTransactionsBinding

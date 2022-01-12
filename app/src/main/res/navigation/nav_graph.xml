@@ -15,9 +15,17 @@
     <fragment
         android:id="@+id/transactionsFragment"
         android:name="com.alikizilcan.stingyapp.ui.transactions.TransactionsFragment"
-        android:label="TransactionsFragment" />
+        android:label="TransactionsFragment" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
         android:name="com.alikizilcan.stingyapp.ui.add.AddTransactionFragment"
-        android:label="AddTransactionFragment" />
+        android:label="AddTransactionFragment" >
+        <action
+            android:id="@+id/action_addTransactionFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
+    </fragment>
 </navigation>
