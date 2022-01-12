@@ -12,8 +12,8 @@ data class TransactionsEntity(
     @ColumnInfo(name = "transaction_name") val transactionName: String,
     @ColumnInfo(name = "transaction_amount") val transactionAmount: Double,
     @ColumnInfo(name = "transaction_date") val transactionDate: String,
-    @ColumnInfo(name = "category") val transactionCategory: Category,
-    @ColumnInfo(name = "type") val transactionType: TYPE,
+    @ColumnInfo(name = "category") val transactionCategory: String,
+    @ColumnInfo(name = "type") val transactionType: String,
     @ColumnInfo(name = "installment") val installment: Int?,
     @ColumnInfo(name = "paid_installments") val paidInstallments: Int?,
 )

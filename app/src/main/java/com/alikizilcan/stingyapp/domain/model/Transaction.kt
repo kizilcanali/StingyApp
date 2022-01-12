@@ -13,8 +13,10 @@ data class Transaction(
     val transactionName: String,
     val transactionAmount: Double,
     val transactionDate: String,
-    val category: @RawValue Category,
-    val transactionType: TYPE,
+    val category: String,
+    val transactionType: String,
+    //val category: @RawValue Category,
+    //val transactionType: TYPE,
     val installment: Int?,
     val paidInstallment: Int?
     ) : Parcelable
