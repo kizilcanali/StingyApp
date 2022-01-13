@@ -1,15 +1,19 @@
 package com.alikizilcan.stingyapp.ui.add
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.time.Duration.Companion.days
 
 @AndroidEntryPoint
 class AddTransactionFragment : Fragment() {
@@ -20,6 +24,7 @@ class AddTransactionFragment : Fragment() {
     private val viewModel: AddTransactionViewModel by viewModels()
     private val navigationObserver = NavigationObserver()
 
+    var stringDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,27 +40,43 @@ class AddTransactionFragment : Fragment() {
         val dropdownAdapter = DropdownItemAdapter(requireContext(), viewModel.transactionCategories)
         binding.categoryList.setAdapter(dropdownAdapter)
 
-        //Dropdown List will make [  ]
+        //Dropdown Type List will make [  ]
 
 
         setupWm()
         return binding.root
     }
 
-    fun setupWm(){
+    private fun setupWm(){
 
-        // Date Format will make [  ]
         // Navigation make [  ]
+        setupDate()
 
         binding.saveButton.setOnClickListener {
             viewModel.addTransaction(
                 binding.transactionNameInputin.text.toString(),
                 binding.transactionAmountInputin.text.toString().toDouble(),
-                binding.transactionDateInput.toString(),
+                stringDate!!,
                 binding.categoryList.text.toString(),
                 binding.typeList.text.toString(),
                 binding.installmentMonthInputin.text.toString().toInt()
             )
+        }
+    }
+
+    private fun setupDate(){
+        val c = Calendar.getInstance()
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val month = c.get(Calendar.MONTH)
+        val year = c.get(Calendar.YEAR)
+
+        binding.transactionDateInputButton.setOnClickListener {
+            val pickerDialog = DatePickerDialog(requireContext(),
+                DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
+                    binding.showDateText.setText("$mDay/${mMonth + 1}/$mYear")
+                    stringDate = " $mDay/${mMonth + 1}/$mYear "
+                }, year, month, day)
+            pickerDialog.show()
         }
     }
 

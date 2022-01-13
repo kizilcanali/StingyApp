@@ -1,5 +1,8 @@
 package com.alikizilcan.stingyapp.ui.add
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alikizilcan.stingyapp.domain.TransactionUseCase
@@ -10,6 +13,7 @@ import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.sql.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +24,8 @@ class AddTransactionViewModel @Inject constructor(
     val navigation = Navigation()
     val transactionCategories: List<Category> = Categories.listOfCategories
     val typeList: List<String> = listOf(TYPE.EXPENSE.toString(), TYPE.INCOME.toString())
+
+
 
     fun addTransaction(
         name: String,
@@ -44,8 +50,6 @@ class AddTransactionViewModel @Inject constructor(
             )
         }
     }
-
-
 
 }
 

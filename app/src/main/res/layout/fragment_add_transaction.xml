@@ -55,15 +55,26 @@
                 android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <DatePicker
-            android:id="@+id/transactionDateInput"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
+        <Button
+            android:id="@+id/transactionDateInputButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionAmountInput"
+            app:layout_constraintEnd_toStartOf="@id/showDateText"
+            android:background="@drawable/ic_date"
+            />
+        <TextView
+            android:id="@+id/showDateText"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/transactionDateInputButton"
             app:layout_constraintEnd_toEndOf="parent"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false"
+            app:layout_constraintTop_toTopOf="@id/transactionDateInputButton"
+            app:layout_constraintBottom_toBottomOf="@id/transactionDateInputButton"
+            android:text="__/__/__"
+            android:gravity="center"
+            android:textSize="18sp"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,10 +83,9 @@
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionDateInput"
+            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton"
             android:hint="@string/category_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-
             >
             <AutoCompleteTextView
                 android:id="@+id/categoryList"
