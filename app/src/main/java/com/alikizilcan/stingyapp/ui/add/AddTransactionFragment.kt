@@ -10,6 +10,7 @@ import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
+import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -41,7 +42,8 @@ class AddTransactionFragment : Fragment() {
         binding.categoryList.setAdapter(dropdownAdapter)
 
         //Dropdown Type List will make [  ]
-
+        val dropdownTypeAdapter = DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
+        binding.typeList.setAdapter(dropdownTypeAdapter)
 
         setupWm()
         return binding.root
