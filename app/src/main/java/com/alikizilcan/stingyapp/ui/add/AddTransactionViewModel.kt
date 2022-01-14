@@ -1,6 +1,7 @@
 package com.alikizilcan.stingyapp.ui.add
 
-import androidx.lifecycle.LiveData
+import android.app.DatePickerDialog
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,11 +10,11 @@ import com.alikizilcan.stingyapp.domain.TransactionUseCase
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.Categories
 import com.alikizilcan.stingyapp.infra.Category
-import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.NumberFormatException
+import java.util.*
+
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,49 +24,54 @@ class AddTransactionViewModel @Inject constructor(
 
     val navigation = Navigation()
     val transactionCategories: List<Category> = Categories.listOfCategories
-    val typeList: List<String> = listOf(TYPE.EXPENSE.toString(), TYPE.INCOME.toString())
+    //val typeList: List<String> = listOf(TYPE.EXPENSE.toString(), TYPE.INCOME.toString())
 
     val isVisibleView: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    //HERE WILL MAKE CHANGE ALL... FUNCTION PARAMETER WON'T TAKE PARAMETER WE'LL GIVE THEM FROM DATA BINDING
+
+    var name: MutableLiveData<String> = MutableLiveData()
+    var amount: MutableLiveData<String> = MutableLiveData()
+    var date: MutableLiveData<String> = MutableLiveData()
+    var category: MutableLiveData<String> = MutableLiveData()
+    var type: MutableLiveData<String> = MutableLiveData()
+    var installmentCount: MutableLiveData<String> = MutableLiveData()
+
 
     fun addTransaction(
-        name: String?,
-        amount: Double?,
-        date: String?,
-        category: String?,
-        type: String?,
-        installmentCount: Int?,
         navDirections: NavDirections
     ) {
-
-        /*var tempInstallment = 0
-
-        if(installmentCount.toString() == ""){
-            try {
-                tempInstallment = 0
-            }catch (e: NumberFormatException){
-                println(e.localizedMessage)
-            }
-        }else{
-            tempInstallment = installmentCount!!
-        }
-        */
 
         viewModelScope.launch {
             transactionUseCase.insertTransaction(
                 Transaction(
                     id = 0,
-                    transactionName = name,
-                    transactionAmount = amount,
-                    transactionDate = date,
-                    category = category,
-                    transactionType = type,
-                    installment = installmentCount,
+                    transactionName = name.value,
+                    transactionAmount = amount.value?.toDouble(),
+                    transactionDate = date.value,
+                    category = category.value,
+                    transactionType = type.value,
+                    installment = installmentCount.value?.toInt(),
                     paidInstallment = 0
                 )
             )
             navigation.navigate(navDirections)
         }
+    }
+
+    fun setupDate(context: Context) {
+        val c = Calendar.getInstance()
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val month = c.get(Calendar.MONTH)
+        val year = c.get(Calendar.YEAR)
+
+            val pickerDialog = DatePickerDialog(
+                context,
+                DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
+                    date.value = "$mDay/${mMonth + 1}/$mYear"
+                }, year, month, day
+            )
+            pickerDialog.show()
     }
 }
 

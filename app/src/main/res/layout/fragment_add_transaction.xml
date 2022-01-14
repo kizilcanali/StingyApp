@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
+                android:text="@={viewModel.name}"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,12 +48,14 @@
             android:hint="@string/amount_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_amount"
+
             >
             <AutoCompleteTextView
                 android:id="@+id/transactionAmountInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:text="@={viewModel.amount}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -72,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/transactionDateInputButton"
             app:layout_constraintBottom_toBottomOf="@id/transactionDateInputButton"
-            android:text="__/__/__"
+            android:text="@={viewModel.date}"
             android:gravity="center"
             android:textSize="18sp"
             />
@@ -91,7 +94,8 @@
                 android:id="@+id/categoryList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="none"/>
+                android:inputType="none"
+                android:text="@={viewModel.category}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -110,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
+                android:text="@={viewModel.type}"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -137,12 +142,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_month"
             setVisibility="@{viewModel.isVisibleView}"
+
             >
             <AutoCompleteTextView
                 android:id="@+id/installmentMonthInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:text="@={viewModel.installmentCount}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

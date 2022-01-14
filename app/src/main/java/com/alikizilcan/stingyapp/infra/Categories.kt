@@ -1,14 +1,5 @@
 package com.alikizilcan.stingyapp.infra
 
-import android.graphics.Color
-import com.alikizilcan.stingyapp.infra.Category
-
-/*
-enum class CATEGORIES(category: Category){
-
-    TRANSPORTATION(Category("Transportation", 0, ""))
-}*/
-
 object Categories{
     val listOfCategories: List<Category> = listOf(
         Category("Transportation", 0, ""),

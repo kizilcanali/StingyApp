@@ -23,13 +23,11 @@ class TransactionUseCase @Inject constructor(
         }
     }
 
-    /* is problem here??   UI MODEL TO DATA MODEL*/
     suspend fun insertTransaction(transaction: Transaction){
         val transactionEntity = transactionMapper.mapFromTransaction(transaction)
         transactionRepository.insertTransactions(transactionEntity)
     }
 
-    /* is problem here??  UI MODEL TO DATA MODEL*/
     suspend fun deleteTransaction(transaction: Transaction) {
         val transactionEntity = transactionMapper.mapFromTransaction(transaction)
         transactionRepository.deleteTransaction(transactionEntity)
@@ -37,6 +35,5 @@ class TransactionUseCase @Inject constructor(
 
     suspend fun updateTransaction(paidInstallment: Int) =
         transactionRepository.updateTransaction(paidInstallment)
-
 
 }
