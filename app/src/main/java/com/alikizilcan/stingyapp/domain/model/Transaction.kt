@@ -10,13 +10,11 @@ import java.util.*
 @Parcelize
 data class Transaction(
     val id: Int,
-    val transactionName: String,
-    val transactionAmount: Double,
-    val transactionDate: String,
-    val category: String,
-    val transactionType: String,
-    //val category: @RawValue Category,
-    //val transactionType: TYPE,
+    val transactionName: String?,
+    val transactionAmount: Double?,
+    val transactionDate: String?,
+    val category: String?,
+    val transactionType: String?,
     val installment: Int?,
     val paidInstallment: Int?
     ) : Parcelable

@@ -23,14 +23,12 @@ class DropdownItemAdapter(
         }
         val category = itemsList[position]
 
-
-        val categoryName: TextView = dropdownItemView!!.findViewById(R.id.transactionNameTextdeneme)
+        val categoryName: TextView = dropdownItemView!!.findViewById(R.id.transactionNameTextDropdown)
         categoryName.text = category.name
 
         //will add icon and colors.
 
         return dropdownItemView
-
     }
 
 }

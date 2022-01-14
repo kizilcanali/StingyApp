@@ -1,10 +1,10 @@
 package com.alikizilcan.stingyapp.ui.add
 
-import android.app.DatePickerDialog
-import android.widget.DatePicker
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import com.alikizilcan.stingyapp.domain.TransactionUseCase
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.Categories
@@ -13,7 +13,7 @@ import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.sql.Date
+import java.lang.NumberFormatException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,16 +25,32 @@ class AddTransactionViewModel @Inject constructor(
     val transactionCategories: List<Category> = Categories.listOfCategories
     val typeList: List<String> = listOf(TYPE.EXPENSE.toString(), TYPE.INCOME.toString())
 
+    val isVisibleView: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
     fun addTransaction(
-        name: String,
-        amount: Double,
-        date: String,
-        category: String,
-        type: String,
-        installmentCount: Int
+        name: String?,
+        amount: Double?,
+        date: String?,
+        category: String?,
+        type: String?,
+        installmentCount: Int?,
+        navDirections: NavDirections
     ) {
+
+        /*var tempInstallment = 0
+
+        if(installmentCount.toString() == ""){
+            try {
+                tempInstallment = 0
+            }catch (e: NumberFormatException){
+                println(e.localizedMessage)
+            }
+        }else{
+            tempInstallment = installmentCount!!
+        }
+        */
+
         viewModelScope.launch {
             transactionUseCase.insertTransaction(
                 Transaction(
@@ -48,8 +64,8 @@ class AddTransactionViewModel @Inject constructor(
                     paidInstallment = 0
                 )
             )
+            navigation.navigate(navDirections)
         }
     }
-
 }
 

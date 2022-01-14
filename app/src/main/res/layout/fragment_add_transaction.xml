@@ -123,6 +123,7 @@
             app:layout_constraintTop_toTopOf="@id/transactionType"
             app:layout_constraintBottom_toBottomOf="@id/transactionType"
             android:text="@string/installment_input"
+            android:checked="@={viewModel.isVisibleView}"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -135,6 +136,7 @@
             android:hint="@string/months"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_month"
+            setVisibility="@{viewModel.isVisibleView}"
             >
             <AutoCompleteTextView
                 android:id="@+id/installmentMonthInputin"

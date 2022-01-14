@@ -6,15 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
 import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.NumberFormatException
 import java.util.*
-import kotlin.time.Duration.Companion.days
 
 @AndroidEntryPoint
 class AddTransactionFragment : Fragment() {
@@ -38,53 +37,78 @@ class AddTransactionFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val dropdownAdapter = DropdownItemAdapter(requireContext(), viewModel.transactionCategories)
-        binding.categoryList.setAdapter(dropdownAdapter)
-
-        //Dropdown Type List will make [  ]
-        val dropdownTypeAdapter = DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
-        binding.typeList.setAdapter(dropdownTypeAdapter)
-
         setupWm()
         return binding.root
     }
 
-    private fun setupWm(){
+    private fun setupWm() {
 
         // Navigation make [  ]
+        var installmentCount = 0
+
         setupDate()
 
         binding.saveButton.setOnClickListener {
+
+            if (binding.installmentMonthInputin.text.toString() == "") {
+                try {
+                    installmentCount = 0
+                } catch (e: NumberFormatException) {
+                    println(e.localizedMessage)
+                }
+            } else {
+                installmentCount = Integer.parseInt(binding.installmentMonthInputin.text.toString())
+            }
+
             viewModel.addTransaction(
-                binding.transactionNameInputin.text.toString(),
-                binding.transactionAmountInputin.text.toString().toDouble(),
-                stringDate!!,
-                binding.categoryList.text.toString(),
-                binding.typeList.text.toString(),
-                binding.installmentMonthInputin.text.toString().toInt()
+                name = binding.transactionNameInputin.text.toString(),
+                amount = binding.transactionAmountInputin.text.toString().toDouble(),
+                date = stringDate!!,
+                category = binding.categoryList.text.toString(),
+                type = binding.typeList.text.toString(),
+                installmentCount = installmentCount,
+                navDirections = AddTransactionFragmentDirections.actionAddTransactionFragmentToTransactionsFragment()
             )
         }
     }
 
-    private fun setupDate(){
+    private fun setupDate() {
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
 
         binding.transactionDateInputButton.setOnClickListener {
-            val pickerDialog = DatePickerDialog(requireContext(),
+            val pickerDialog = DatePickerDialog(
+                requireContext(),
                 DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                    binding.showDateText.setText("$mDay/${mMonth + 1}/$mYear")
+                    binding.showDateText.text = "$mDay/${mMonth + 1}/$mYear"
                     stringDate = " $mDay/${mMonth + 1}/$mYear "
-                }, year, month, day)
+                }, year, month, day
+            )
             pickerDialog.show()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val dropdownAdapter = DropdownItemAdapter(requireContext(), viewModel.transactionCategories)
+        binding.categoryList.setAdapter(dropdownAdapter)
+
+        val dropdownTypeAdapter =
+            DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
+        binding.typeList.setAdapter(dropdownTypeAdapter)
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigationObserver.observeNavigation(viewModel.navigation, findNavController(), viewLifecycleOwner)
+        navigationObserver.observeNavigation(
+            viewModel.navigation,
+            findNavController(),
+            viewLifecycleOwner
+        )
 
     }
 }
