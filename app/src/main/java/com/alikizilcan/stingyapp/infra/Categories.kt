@@ -2,7 +2,7 @@ package com.alikizilcan.stingyapp.infra
 
 import com.alikizilcan.stingyapp.R
 
-object Categories{
+object Categoriesx{
     val listOfCategories: List<Category> = listOf(
         Category("Transportation", R.drawable.ic_transportation, ""),
         Category("Fuel", 0, ""),
@@ -20,4 +20,11 @@ object Categories{
         Category("House", 0, ""),
         Category("Car", 0, ""),
     )
+}
+
+enum class Categories(transactionCategory: String){
+    TRANSPORTATION("Transportation"),
+    FUEL("Fuel"),
+    TECHNOLOGY("Technology"),
+    JEWELRY("Jewelry")
 }

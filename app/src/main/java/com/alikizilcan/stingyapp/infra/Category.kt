@@ -1,7 +1,7 @@
 package com.alikizilcan.stingyapp.infra
 
-class Category(
-    val name: String,
+data class Category(
+    var name: String,
     val icon: Int?,
     val color: String?
 ){

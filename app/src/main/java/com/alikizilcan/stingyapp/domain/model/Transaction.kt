@@ -14,6 +14,8 @@ data class Transaction(
     val transactionAmount: Double?,
     val transactionDate: String?,
     val category: String?,
+    val categoryIcon: Int?,
+    val categoryColor: String?,
     val transactionType: String?,
     val installment: Int?,
     val paidInstallment: Int?

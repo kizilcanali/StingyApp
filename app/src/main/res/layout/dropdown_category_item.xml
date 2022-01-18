@@ -20,7 +20,7 @@
             />
 
         <TextView
-            android:id="@+id/transactionNameTextDropdown"
+            android:id="@+id/transactionCategoryTextDropdown"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@id/categoryIcon"

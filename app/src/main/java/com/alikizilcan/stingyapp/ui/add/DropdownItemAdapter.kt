@@ -24,13 +24,12 @@ class DropdownItemAdapter(
         }
         val category = itemsList[position]
 
-        val categoryName: TextView = dropdownItemView!!.findViewById(R.id.transactionNameTextDropdown)
+        val categoryName: TextView = dropdownItemView!!.findViewById(R.id.transactionCategoryTextDropdown)
         categoryName.text = category.name
 
         val categoryIcon: ImageView = dropdownItemView.findViewById(R.id.categoryIcon)
         categoryIcon.setImageResource(category.icon!!)
 
-        //will add icon and colors.
 
         return dropdownItemView
     }

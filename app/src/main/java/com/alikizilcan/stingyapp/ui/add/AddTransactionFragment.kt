@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
@@ -43,6 +44,7 @@ class AddTransactionFragment : Fragment() {
             )
         }
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -53,6 +55,7 @@ class AddTransactionFragment : Fragment() {
             DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
         binding.typeList.setAdapter(dropdownTypeAdapter)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigationObserver.observeNavigation(
@@ -60,5 +63,11 @@ class AddTransactionFragment : Fragment() {
             findNavController(),
             viewLifecycleOwner
         )
+
+        binding.categoryList.doOnTextChanged { text, _, _, _ ->
+            viewModel._categoryName.value = text.toString()
+            viewModel.updateViewState()
+        }
+
     }
 }
