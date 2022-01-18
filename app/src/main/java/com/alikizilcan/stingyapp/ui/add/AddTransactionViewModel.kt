@@ -24,11 +24,7 @@ class AddTransactionViewModel @Inject constructor(
 
     val navigation = Navigation()
     val transactionCategories: List<Category> = Categories.listOfCategories
-    //val typeList: List<String> = listOf(TYPE.EXPENSE.toString(), TYPE.INCOME.toString())
-
     val isVisibleView: MutableLiveData<Boolean> = MutableLiveData(false)
-
-    //HERE WILL MAKE CHANGE ALL... FUNCTION PARAMETER WON'T TAKE PARAMETER WE'LL GIVE THEM FROM DATA BINDING
 
     var name: MutableLiveData<String> = MutableLiveData()
     var amount: MutableLiveData<String> = MutableLiveData()
@@ -37,11 +33,9 @@ class AddTransactionViewModel @Inject constructor(
     var type: MutableLiveData<String> = MutableLiveData()
     var installmentCount: MutableLiveData<String> = MutableLiveData()
 
-
     fun addTransaction(
         navDirections: NavDirections
     ) {
-
         viewModelScope.launch {
             transactionUseCase.insertTransaction(
                 Transaction(
@@ -64,14 +58,13 @@ class AddTransactionViewModel @Inject constructor(
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
-
-            val pickerDialog = DatePickerDialog(
-                context,
-                DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                    date.value = "$mDay/${mMonth + 1}/$mYear"
-                }, year, month, day
-            )
-            pickerDialog.show()
+        val pickerDialog = DatePickerDialog(
+            context,
+            DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
+                date.value = "$mDay/${mMonth + 1}/$mYear"
+            }, year, month, day
+        )
+        pickerDialog.show()
     }
 }
 

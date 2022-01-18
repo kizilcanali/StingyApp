@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.infra.Category
@@ -19,12 +20,15 @@ class DropdownItemAdapter(
         var dropdownItemView = convertView
 
         if (dropdownItemView == null) {
-            dropdownItemView = LayoutInflater.from(mContext).inflate(R.layout.dropdown_item, parent, false)
+            dropdownItemView = LayoutInflater.from(mContext).inflate(R.layout.dropdown_category_item, parent, false)
         }
         val category = itemsList[position]
 
         val categoryName: TextView = dropdownItemView!!.findViewById(R.id.transactionNameTextDropdown)
         categoryName.text = category.name
+
+        val categoryIcon: ImageView = dropdownItemView.findViewById(R.id.categoryIcon)
+        categoryIcon.setImageResource(category.icon!!)
 
         //will add icon and colors.
 

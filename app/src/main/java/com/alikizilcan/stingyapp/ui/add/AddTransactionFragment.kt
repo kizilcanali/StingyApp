@@ -25,10 +25,10 @@ class AddTransactionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentAddTransactionBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
         setupWm()
         return binding.root
     }
@@ -43,7 +43,6 @@ class AddTransactionFragment : Fragment() {
             )
         }
     }
-
     override fun onResume() {
         super.onResume()
 
