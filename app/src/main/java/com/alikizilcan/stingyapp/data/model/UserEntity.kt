@@ -9,5 +9,5 @@ data class UserEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "budget") val budget: Double,
     @ColumnInfo(name = "iban") val iban: Int?,
-    @ColumnInfo(name = "account_number") val accountNumber: Double?,
+    @ColumnInfo(name = "account_number") val accountNumber: Int?,
     )

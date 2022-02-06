@@ -11,4 +11,6 @@
     <string name="transaction_type">Type</string>
     <string name="category_input">Category</string>
     <string name="transaction_date">Date</string>
+    <string name="tl_icon_text">₺</string>
+    <string name="saveButtonText">SAVE</string>
 </resources>

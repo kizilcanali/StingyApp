@@ -13,11 +13,7 @@ class TransactionToTransactionEntityMapper @Inject constructor(){
             transactionAmount = transaction.transactionAmount.orZero(),
             transactionDate = transaction.transactionDate.orEmpty(),
             transactionCategory = transaction.category.orEmpty(),
-            categoryIcon = transaction.categoryIcon.orZero(),
-            categoryColor = transaction.categoryColor.orEmpty(),
             transactionType = transaction.transactionType.orEmpty(),
-            installment = transaction.installment.orZero(),
-            paidInstallments = transaction.paidInstallment.orZero()
         )
     }
 }

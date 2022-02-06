@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.alikizilcan.stingyapp.ui.add.AddTransactionViewModel" />
+
         <variable
             name="viewState"
             type="com.alikizilcan.stingyapp.infra.ViewState" />
@@ -16,129 +17,107 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.add.AddTransactionFragment"
         android:padding="20dp"
-        >
-
+        tools:context=".ui.add.AddTransactionFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionNameInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:hint="@string/transaction_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:startIconDrawable="@drawable/ic_payment"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_payment">
+
             <AutoCompleteTextView
                 android:id="@+id/transactionNameInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:text="@={viewModel.name}"
-                />
+                android:text="@={viewModel.name}" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionAmountInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionNameInput"
             android:hint="@string/amount_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:startIconDrawable="@drawable/ic_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionNameInput"
+            app:startIconDrawable="@drawable/ic_amount">
 
-            >
             <AutoCompleteTextView
                 android:id="@+id/transactionAmountInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:text="@={viewModel.amount}"/>
+                android:text="@={viewModel.amount}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/transactionDateInputButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput"
-            app:layout_constraintEnd_toStartOf="@id/showDateText"
             android:background="@drawable/ic_date"
-            />
+            app:layout_constraintEnd_toStartOf="@id/showDateText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput" />
+
         <TextView
             android:id="@+id/showDateText"
             android:layout_width="150dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toEndOf="@id/transactionDateInputButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/transactionDateInputButton"
-            app:layout_constraintBottom_toBottomOf="@id/transactionDateInputButton"
-            android:text="@={viewModel.date}"
             android:gravity="center"
+            android:text="@={viewModel.date}"
             android:textSize="18sp"
-            />
-
+            app:layout_constraintBottom_toBottomOf="@id/transactionDateInputButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/transactionDateInputButton"
+            app:layout_constraintTop_toTopOf="@id/transactionDateInputButton" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionCategoryInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton"
             android:hint="@string/category_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton">
 
             <AutoCompleteTextView
                 android:id="@+id/categoryList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
-                android:text="@={viewModel.category}"
-                android:drawableStart="@{viewModel.updateViewState}"
-                />
-
-
+                android:text="@={viewModel.category}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/testImage"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@{viewModel.updateViewState}"
-            tools:src="@tools:sample/backgrounds/scenic"
-            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionType"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/hasInstallmentCheck"
-            app:layout_constraintTop_toBottomOf="@id/transactionCategoryInput"
             android:hint="@string/transaction_type"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:startIconDrawable="@drawable/ic_transactions"
-            >
+            app:layout_constraintEnd_toStartOf="@id/hasInstallmentCheck"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionCategoryInput"
+            app:startIconDrawable="@drawable/ic_transactions">
+
             <AutoCompleteTextView
                 android:id="@+id/typeList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
-                android:text="@={viewModel.type}"
-                />
+                android:text="@={viewModel.type}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,45 +125,42 @@
             android:id="@+id/hasInstallmentCheck"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toEndOf="@id/transactionType"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/transactionType"
-            app:layout_constraintBottom_toBottomOf="@id/transactionType"
-            android:text="@string/installment_input"
             android:checked="@={viewModel.isVisibleView}"
-            />
+            android:text="@string/installment_input"
+            app:layout_constraintBottom_toBottomOf="@id/transactionType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/transactionType"
+            app:layout_constraintTop_toTopOf="@id/transactionType" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/installmentMonthInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            setVisibility="@{viewModel.isVisibleView}"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionType"
             android:hint="@string/months"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:startIconDrawable="@drawable/ic_month"
-            setVisibility="@{viewModel.isVisibleView}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionType"
+            app:startIconDrawable="@drawable/ic_month">
 
-            >
             <AutoCompleteTextView
                 android:id="@+id/installmentMonthInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:text="@={viewModel.installmentCount}"/>
+                android:text="@={viewModel.installmentCount}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/installmentMonthInput"
-            android:text="SAVE"
             android:backgroundTint="@color/dark_blue"
-            />
+            android:text="@string/saveButtonText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/installmentMonthInput" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,76 +10,95 @@
             type="com.alikizilcan.stingyapp.domain.model.Transaction" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/transactionCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="2dp"
+        android:backgroundTint="@color/gray_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:backgroundTint="@color/gray_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/fixedLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="70dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
-                >
+                app:layout_constraintBottom_toTopOf="@id/installmentsRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/categoryIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    tools:src="@drawable/ic_test"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
-                    android:layout_gravity="center_vertical"/>
-                    <!--- icon will remake-->
+                    tools:src="@drawable/ic_car" />
+                <!--- icon will remake-->
 
                 <TextView
                     android:id="@+id/transactionNameText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text="@{baseModel.transactionName}"
                     android:textSize="18sp"
-                    tools:text="Opet Fuel"
-                    android:layout_weight="3"
-                    android:gravity="center"/>
+                    tools:text="Opet Fuel" />
 
                 <TextView
                     android:id="@+id/transactionDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@{baseModel.transactionDate}"
-                    tools:text="@tools:sample/date/ddmmyy"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="@{baseModel.transactionDate}"
+                    tools:text="@tools:sample/date/ddmmyy" />
 
                 <TextView
                     android:id="@+id/transactionAmount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="@{baseModel.transactionAmount.toString()}"
+
                     android:textColor="@color/red"
                     android:textSize="18sp"
-                    tools:text="- 458TL"
-                    android:layout_weight="2" />
+                    tools:text="- 458TL" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/deleteTransactionButton"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    />
-
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_delete" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/installmentsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fixedLayout"
+                tools:listitem="@layout/item_installments_list"
+                android:visibility="visible"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

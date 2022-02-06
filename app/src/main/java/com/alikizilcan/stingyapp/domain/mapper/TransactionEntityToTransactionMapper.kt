@@ -8,16 +8,12 @@ import javax.inject.Inject
 class TransactionEntityToTransactionMapper @Inject constructor(){
     fun mapFromTransactionEntity(entity: TransactionsEntity) : Transaction {
         return Transaction(
-            id = entity.id.orZero(),
+            id = entity.id,
             transactionName = entity.transactionName.orEmpty(),
             transactionAmount = entity.transactionAmount.orZero(),
             transactionDate = entity.transactionDate.orEmpty(),
             category = entity.transactionCategory.orEmpty(),
-            categoryIcon = entity.categoryIcon.orZero(),
-            categoryColor = entity.categoryColor.orEmpty(),
             transactionType = entity.transactionType.orEmpty(),
-            installment = entity.installment.orZero(),
-            paidInstallment = entity.paidInstallments.orZero()
         )
     }
 }

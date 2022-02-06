@@ -1,8 +1,11 @@
 package com.alikizilcan.stingyapp.data
 
 import androidx.room.*
+import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
+import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.UserEntity
+import java.util.*
 
 @Dao
 interface StingyDao {
@@ -17,7 +20,7 @@ interface StingyDao {
     suspend fun getBudget(): Double
 
     @Query("SELECT * FROM user_entity")
-    suspend fun getUserInformation() : List<UserEntity>
+    suspend fun getUserInformation(): UserEntity
 
     @Query("UPDATE user_entity SET budget = :newBudget")
     suspend fun updateBudget(newBudget: Double)
@@ -25,7 +28,15 @@ interface StingyDao {
     @Query("SELECT * FROM transactions")
     suspend fun fetchTransactions(): List<TransactionsEntity>
 
-    @Query("UPDATE transactions SET paid_installments = :paidInstallments")
-    suspend fun updateTransaction(paidInstallments: Int)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInstallment(installment: InstallmentsEntity)
+
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE id = :connectionId")
+    suspend fun getTransactionWithInstallments(connectionId: UUID): List<TransactionsAndInstallments>
+
+
+    //@Query("UPDATE transactions SET paid_installments = :paidInstallments")
+    //suspend fun updateTransaction(paidInstallments: Int)
 
 }

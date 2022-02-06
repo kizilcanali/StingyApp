@@ -10,22 +10,25 @@ import com.alikizilcan.stingyapp.domain.model.Transaction
 
 class TransactionsAdapter :
     ListAdapter<Transaction, TransactionsAdapter.TransactionViewHolder>(DIFF_CALLBACK) {
-    var itemClickListener: (Transaction) -> Unit = {}
 
-    class TransactionViewHolder(private val binding: ItemTransactionListBinding, private var itemClickListener:(Transaction) -> Unit) :
+    var itemDeleteClickListener: (Transaction) -> Unit = {}
+
+    class TransactionViewHolder(
+        private val binding: ItemTransactionListBinding,
+        private var itemDeleteClickListener: (Transaction) -> Unit,
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
             binding.baseModel = transaction
             binding.executePendingBindings()
-            binding.deleteTransactionButton.setOnClickListener {
-                itemClickListener(transaction)
-            }
+            binding.deleteTransactionButton.setOnClickListener { itemDeleteClickListener(transaction) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val binding = ItemTransactionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TransactionViewHolder(binding, itemClickListener)
+        val binding =
+            ItemTransactionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TransactionViewHolder(binding, itemDeleteClickListener)
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
@@ -42,5 +45,4 @@ class TransactionsAdapter :
 
         }
     }
-
 }

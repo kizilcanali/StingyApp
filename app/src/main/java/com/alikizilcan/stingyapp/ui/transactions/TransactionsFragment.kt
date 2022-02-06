@@ -21,19 +21,17 @@ class TransactionsFragment : Fragment() {
     private lateinit var _binding: FragmentTransactionsBinding
     private val binding get() = _binding
 
-    private val viewModel:TransactionsViewModel by viewModels()
+    private val viewModel: TransactionsViewModel by viewModels()
     private val transactionsAdapter = TransactionsAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         _binding = FragmentTransactionsBinding.inflate(inflater, container, false)
         _binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
         return binding.root
     }
 
@@ -44,16 +42,17 @@ class TransactionsFragment : Fragment() {
             findNavController(),
             viewLifecycleOwner
         )
+
         binding.transactionsRecyclerView.adapter = transactionsAdapter
 
-        viewModel.transactionsList.observe(viewLifecycleOwner){
+        viewModel.transactionsList.observe(viewLifecycleOwner) {
             transactionsAdapter.submitList(it)
         }
-        transactionsAdapter.itemClickListener = viewModel.itemClickListener
+
+        transactionsAdapter.itemDeleteClickListener = viewModel.itemDeleteClickListener
 
         binding.addTransactionButton.setOnClickListener {
             viewModel.addTransaction(TransactionsFragmentDirections.actionTransactionsFragmentToAddTransactionFragment())
         }
-
     }
 }
