@@ -11,8 +11,10 @@ import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -21,33 +23,34 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     ViewModel() {
 
     val navigation = Navigation()
-
-    private val _transactionsList : MutableLiveData<List<Transaction>> = MutableLiveData()
+    private val _transactionsList: MutableLiveData<List<Transaction>> = MutableLiveData()
     val transactionsList: LiveData<List<Transaction>> = _transactionsList
 
     private var _installmentsList: MutableLiveData<List<InstallmentsEntity>> = MutableLiveData()
     val installmentsList: LiveData<List<InstallmentsEntity>> = _installmentsList
-    var connectionId: UUID? = null
 
-    var showInstallments: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val itemDeleteClickListener: (Transaction) -> Unit = {
         deleteTransaction(it)
-        fetchTransactions()
+
     }
 
     init {
         fetchTransactions()
     }
 
-    private fun fetchTransactions(){
+    private fun fetchTransactions() {
         viewModelScope.launch {
             transactionUseCase.fetchTransactions().collect {
                 _transactionsList.value = it
+                it.map { obj ->
+                    fetchInstallments(obj.id)
+                }
             }
         }
     }
-    private fun fetchInstallments(connectionId: UUID){
+
+    private fun fetchInstallments(connectionId: UUID) {
         viewModelScope.launch {
             transactionUseCase.getTransactionsWithInstallments(connectionId).collect {
                 _installmentsList.value = it[0].installments
@@ -55,13 +58,13 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         }
     }
 
-    private fun deleteTransaction(transaction:Transaction){
+    private fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
             transactionUseCase.deleteTransaction(transaction)
         }
     }
 
-    fun addTransaction(navDirections: NavDirections){
+    fun addTransaction(navDirections: NavDirections) {
         navigation.navigate(navDirections)
     }
 }

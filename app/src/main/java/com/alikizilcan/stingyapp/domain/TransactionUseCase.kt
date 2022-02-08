@@ -1,6 +1,7 @@
 package com.alikizilcan.stingyapp.domain
 
 import com.alikizilcan.stingyapp.data.TransactionRepository
+import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentEntityToInstallmentMapper

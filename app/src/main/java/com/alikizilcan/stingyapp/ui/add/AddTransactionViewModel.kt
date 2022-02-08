@@ -69,7 +69,7 @@ class AddTransactionViewModel @Inject constructor(
                 for (i in 1..installmentCount.value!!.toInt()) {
                     transactionUseCase.insertInstallment(
                         Installments(
-                            id = i,
+                            id = i.toString(),
                             name = name.value!!,
                             installmentCount = installmentCount.value!!.toInt(),
                             monthlyPayment = monthlyPayment,
@@ -80,9 +80,6 @@ class AddTransactionViewModel @Inject constructor(
                     )
                 }
             }
-            //deneysel çalışma
-            fetchConnectedTransactions(idValue)
-
             navigation.navigate(navDirections)
         }
     }
@@ -114,13 +111,6 @@ class AddTransactionViewModel @Inject constructor(
         pickerDialog.show()
     }
 
-    private fun fetchConnectedTransactions(connectionId: UUID){
-        viewModelScope.launch {
-            transactionUseCase.getTransactionsWithInstallments(connectionId).collect {
-                println("Return values: ${it[0].installments}")
-            }
-        }
-    }
 
 /*
 
