@@ -23,8 +23,8 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     ViewModel() {
 
     val navigation = Navigation()
-    private val _transactionsList: MutableLiveData<List<Transaction>> = MutableLiveData()
-    val transactionsList: LiveData<List<Transaction>> = _transactionsList
+    private val _transactionsList: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
+    val transactionsList: LiveData<MutableList<Transaction>> = _transactionsList
 
     private var _installmentsList: MutableLiveData<List<InstallmentsEntity>> = MutableLiveData()
     val installmentsList: LiveData<List<InstallmentsEntity>> = _installmentsList
@@ -32,7 +32,6 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
 
     val itemDeleteClickListener: (Transaction) -> Unit = {
         deleteTransaction(it)
-
     }
 
     init {
@@ -42,7 +41,7 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     private fun fetchTransactions() {
         viewModelScope.launch {
             transactionUseCase.fetchTransactions().collect {
-                _transactionsList.value = it
+                _transactionsList.value = it.toMutableList()
                 it.map { obj ->
                     fetchInstallments(obj.id)
                 }
@@ -60,6 +59,7 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
 
     private fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
+            _transactionsList.value?.remove(transaction)
             transactionUseCase.deleteTransaction(transaction)
         }
     }

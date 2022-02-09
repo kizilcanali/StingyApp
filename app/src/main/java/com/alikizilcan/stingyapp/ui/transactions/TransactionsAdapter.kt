@@ -2,18 +2,17 @@ package com.alikizilcan.stingyapp.ui.transactions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.databinding.ItemTransactionListBinding
 import com.alikizilcan.stingyapp.domain.model.Transaction
+import java.util.*
 import javax.inject.Inject
 
-// NOTIFY DATA SET CHANGED
-//
-
 class TransactionsAdapter @Inject constructor(
-    private val transactionsList: List<Transaction>,
+    private var transactionsList: MutableList<Transaction>,
     private val nestedRecyclerViewList: List<InstallmentsEntity>
 ) :
     RecyclerView.Adapter<TransactionsAdapter.TransactionViewHolder>() {
@@ -27,14 +26,15 @@ class TransactionsAdapter @Inject constructor(
         RecyclerView.ViewHolder(binding.root) {
         val installmentsRecyclerView = binding.installmentsRecyclerView
 
-
         fun bind(transaction: Transaction) {
             var isExpanded = false
             binding.baseModel = transaction
-            binding.deleteTransactionButton.setOnClickListener { itemDeleteClickListener(transaction) }
+            binding.deleteTransactionButton.setOnClickListener {
+                itemDeleteClickListener(transaction)
+
+            }
             binding.root.setOnClickListener {
                 isExpanded = !isExpanded
-                println(isExpanded)
                 binding.installmentsRecyclerView.isVisible = isExpanded
             }
         }
@@ -49,7 +49,6 @@ class TransactionsAdapter @Inject constructor(
         holder.bind(transactionsList[position])
         val installmentsAdapter = InstallmentsAdapter(nestedRecyclerViewList)
         holder.installmentsRecyclerView.adapter = installmentsAdapter
-
     }
     override fun getItemCount(): Int {
         return transactionsList.size

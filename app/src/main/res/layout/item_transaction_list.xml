@@ -98,6 +98,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fixedLayout"
                 tools:listitem="@layout/item_installments_list"
+                android:visibility="gone"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

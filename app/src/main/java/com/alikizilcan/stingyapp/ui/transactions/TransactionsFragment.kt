@@ -1,10 +1,8 @@
 package com.alikizilcan.stingyapp.ui.transactions
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.SurfaceControl
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -12,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentTransactionsBinding
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TransactionsFragment : Fragment() {
@@ -43,12 +40,15 @@ class TransactionsFragment : Fragment() {
         )
 
         viewModel.transactionsList.observe(viewLifecycleOwner) { transactions ->
-
             viewModel.installmentsList.observe(viewLifecycleOwner) { installments ->
-                val xAdapter = TransactionsAdapter(transactions, installments)
+                val instAdapter = TransactionsAdapter(transactions, installments)
                 transactions.let {
-                    binding.transactionsRecyclerView.adapter = xAdapter
-                    xAdapter.itemDeleteClickListener = viewModel.itemDeleteClickListener
+                    binding.transactionsRecyclerView.adapter = instAdapter
+                    instAdapter.itemDeleteClickListener = {
+                        transactions.remove(it)
+                        viewModel.itemDeleteClickListener(it)
+                        instAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         }
