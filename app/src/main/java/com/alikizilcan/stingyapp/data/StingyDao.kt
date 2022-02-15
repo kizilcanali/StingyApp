@@ -2,10 +2,8 @@ package com.alikizilcan.stingyapp.data
 
 import androidx.room.*
 import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
-import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.UserEntity
-import com.alikizilcan.stingyapp.domain.model.Installments
 import java.util.*
 
 @Dao
@@ -31,10 +29,6 @@ interface StingyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInstallment(installment: InstallmentsEntity)
-
-    @Transaction
-    @Query("SELECT * FROM transactions WHERE id = :connectionId")
-    suspend fun getTransactionWithInstallments(connectionId: UUID): List<TransactionsAndInstallments>
 
     @Query("SELECT * FROM installments WHERE connector_id = :testId")
     suspend fun getInstallments(testId: UUID): List<InstallmentsEntity>

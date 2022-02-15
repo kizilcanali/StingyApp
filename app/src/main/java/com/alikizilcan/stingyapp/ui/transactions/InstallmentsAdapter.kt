@@ -2,10 +2,7 @@ package com.alikizilcan.stingyapp.ui.transactions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.databinding.ItemInstallmentsListBinding
 import com.alikizilcan.stingyapp.domain.model.Installments
 
@@ -45,6 +42,5 @@ class InstallmentsAdapter(private var installmentsList: List<Installments>) :
     override fun getItemCount(): Int {
         return installmentsList.size
     }
-
 
 }

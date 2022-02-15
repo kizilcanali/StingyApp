@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.alikizilcan.stingyapp.R
-import com.alikizilcan.stingyapp.infra.Category
 import com.alikizilcan.stingyapp.infra.di.TYPE
 
 class DropdownTypeAdapter(private val mContext: Context,

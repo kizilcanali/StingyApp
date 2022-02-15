@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 
 class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao) {
-
     suspend fun insertTransaction(transactionsEntity: TransactionsEntity) =
         stingyDao.insertTransaction(transactionsEntity)
 
@@ -21,13 +20,8 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
     suspend fun insertInstallment(installment: InstallmentsEntity) =
         stingyDao.insertInstallment(installment)
 
-    suspend fun getTransactionsWithInstallments(connectionId: UUID) =
-        stingyDao.getTransactionWithInstallments(connectionId)
-
-
     suspend fun getInstallments(testId: UUID) = stingyDao.getInstallments(testId)
 
-    /*HERE MIGHT CHANGE*/
     //suspend fun updateTransaction(paidInstallment: Int) = stingyDao.updateTransaction(paidInstallment)
 
 

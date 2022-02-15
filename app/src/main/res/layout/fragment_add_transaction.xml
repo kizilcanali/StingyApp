@@ -8,10 +8,6 @@
         <variable
             name="viewModel"
             type="com.alikizilcan.stingyapp.ui.add.AddTransactionViewModel" />
-
-        <variable
-            name="viewState"
-            type="com.alikizilcan.stingyapp.infra.ViewState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

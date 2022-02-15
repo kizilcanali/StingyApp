@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alikizilcan.stingyapp.R
-import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.databinding.ItemTransactionListBinding
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.Categories
@@ -69,7 +68,6 @@ class TransactionsAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         holder.bind(getItem(position))
         val list = getItem(position).installments
-
         if (list != null){
             var installmentsAdapter = InstallmentsAdapter(list)
             holder.installmentsRecyclerView.adapter = installmentsAdapter

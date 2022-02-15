@@ -1,8 +1,6 @@
 package com.alikizilcan.stingyapp.domain
 
 import com.alikizilcan.stingyapp.data.TransactionRepository
-import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
-import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentEntityToInstallmentMapper
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentToInstallmentEntityMapper
 import com.alikizilcan.stingyapp.domain.mapper.TransactionEntityToTransactionMapper
@@ -49,10 +47,6 @@ class TransactionUseCase @Inject constructor(
     suspend fun insertInstallment(installment: Installments) {
         val installmentsEntity = installmentsMapper.mapFromInstallment(installment)
         transactionRepository.insertInstallment(installmentsEntity)
-    }
-
-    suspend fun getTransactionsWithInstallments(connectionId: UUID): Flow<List<TransactionsAndInstallments>> {
-        return transactionRepository.getTransactionWithInstallments(connectionId)
     }
 
     suspend fun getInstallments(testId: UUID): Flow<List<Installments>> {

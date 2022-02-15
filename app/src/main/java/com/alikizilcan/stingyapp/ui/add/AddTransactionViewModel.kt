@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.alikizilcan.stingyapp.domain.TransactionUseCase
@@ -12,7 +11,6 @@ import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.*
 import com.alikizilcan.stingyapp.infra.base.BaseViewModel
-import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -56,6 +54,7 @@ class AddTransactionViewModel @Inject constructor(
             if (isVisibleView.value == false) {
                 setNewBudget(amount.value!!.toDouble())
                 transactionUseCase.updateBudget(newBudget = budget)
+                _installmentsList.value = emptyList()
             } else {
                 val monthlyPayment =
                     (amount.value!!.toDouble() / installmentCount.value!!.toInt())
@@ -123,7 +122,6 @@ class AddTransactionViewModel @Inject constructor(
     }
 
     private suspend fun fetchInstallments(connectionId: UUID) {
-
         transactionUseCase.getInstallments(connectionId).collect {
             _installmentsList.value = it
             println("fetch installments list: $it")

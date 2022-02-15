@@ -14,10 +14,20 @@ fun Int.buildDay(): String = if (this / 9 == 0) "0${this}" else "$this"
 
 fun List<Installments>.toDataModel(): String {
     val gson = Gson()
-    return gson.toJson(this)
+    return if(this == null){
+        ""
+    }else{
+        gson.toJson(this)
+    }
+
 }
 
 fun String.toUIModel(): List<Installments> {
     val gson = Gson()
-    return gson.fromJson(this, Array<Installments>::class.java).asList()
+    return if(this == ""){
+        emptyList()
+    }else{
+        return gson.fromJson(this, Array<Installments>::class.java).asList()
+    }
+
 }

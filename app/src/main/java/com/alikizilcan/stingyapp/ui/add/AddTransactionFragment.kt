@@ -1,16 +1,13 @@
 package com.alikizilcan.stingyapp.ui.add
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.di.TYPE
-import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
