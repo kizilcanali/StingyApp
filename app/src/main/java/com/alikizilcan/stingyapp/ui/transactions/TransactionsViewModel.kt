@@ -10,6 +10,7 @@ import com.alikizilcan.stingyapp.infra.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +22,9 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
 
     val itemDeleteClickListener: (Transaction) -> Unit = {
         deleteTransaction(it)
+        if(it.installments != null){
+            deleteInstallments(it.id)
+        }
     }
 
     init {
@@ -40,6 +44,12 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         viewModelScope.launch {
             _transactionsList.value?.remove(transaction)
             transactionUseCase.deleteTransaction(transaction)
+        }
+    }
+
+    private fun deleteInstallments(connectorId: UUID){
+        viewModelScope.launch {
+            transactionUseCase.deleteInstallments(connectorId)
         }
     }
 

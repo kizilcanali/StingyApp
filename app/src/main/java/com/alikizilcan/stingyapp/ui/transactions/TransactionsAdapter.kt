@@ -23,7 +23,7 @@ class TransactionsAdapter @Inject constructor() :
     class TransactionViewHolder(
         private val binding: ItemTransactionListBinding,
         private var itemDeleteClickListener: (Transaction) -> Unit,
-        ) :
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         val installmentsRecyclerView = binding.installmentsRecyclerView
@@ -33,7 +33,13 @@ class TransactionsAdapter @Inject constructor() :
             binding.baseModel = transaction
 
             binding.categoryIcon.setImageResource(setTransactionIcon(transaction.category!!).icon!!)
-            binding.transactionCard.setCardBackgroundColor(Color.parseColor(setTransactionIcon(transaction.category!!).color))
+            binding.transactionCard.setCardBackgroundColor(
+                Color.parseColor(
+                    setTransactionIcon(
+                        transaction.category!!
+                    ).color
+                )
+            )
             binding.executePendingBindings()
 
             binding.deleteTransactionButton.setOnClickListener { itemDeleteClickListener(transaction) }
@@ -43,6 +49,7 @@ class TransactionsAdapter @Inject constructor() :
             }
 
         }
+
         private fun setTransactionIcon(iconText: String): Category {
             return when (iconText.uppercase()) {
                 //Test Values
@@ -68,7 +75,7 @@ class TransactionsAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         holder.bind(getItem(position))
         val list = getItem(position).installments
-        if (list != null){
+        if (list != null) {
             var installmentsAdapter = InstallmentsAdapter(list)
             holder.installmentsRecyclerView.adapter = installmentsAdapter
         }
@@ -79,6 +86,7 @@ class TransactionsAdapter @Inject constructor() :
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Transaction>() {
             override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean =
                 oldItem.id == newItem.id
+
             override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean =
                 oldItem == newItem
         }

@@ -22,7 +22,7 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
 
     suspend fun getInstallments(testId: UUID) = stingyDao.getInstallments(testId)
 
+    suspend fun deleteInstallments(connectorId: UUID) = stingyDao.deleteInstallments(connectorId)
     //suspend fun updateTransaction(paidInstallment: Int) = stingyDao.updateTransaction(paidInstallment)
-
 
 }

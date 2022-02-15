@@ -4,6 +4,7 @@ import androidx.room.*
 import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.UserEntity
+import com.alikizilcan.stingyapp.domain.model.Installments
 import java.util.*
 
 @Dao
@@ -14,6 +15,8 @@ interface StingyDao {
 
     @Delete
     suspend fun deleteTransaction(transactionsEntity: TransactionsEntity)
+
+
 
     @Query("SELECT budget FROM user_entity")
     suspend fun getBudget(): Double
@@ -32,6 +35,9 @@ interface StingyDao {
 
     @Query("SELECT * FROM installments WHERE connector_id = :testId")
     suspend fun getInstallments(testId: UUID): List<InstallmentsEntity>
+
+    @Query("DELETE FROM installments WHERE connector_id = :connectorId")
+    suspend fun deleteInstallments(connectorId: UUID)
 
     //@Query("UPDATE transactions SET paid_installments = :paidInstallments")
     //suspend fun updateTransaction(paidInstallments: Int)

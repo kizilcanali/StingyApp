@@ -33,4 +33,6 @@ class TransactionRepository @Inject constructor(private val stingyLocalDataSourc
         emit(stingyLocalDataSource.getInstallments(testId))
     }
 
+    suspend fun deleteInstallments(connectorId: UUID) = stingyLocalDataSource.deleteInstallments(connectorId)
+
 }

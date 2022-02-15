@@ -124,8 +124,6 @@ class AddTransactionViewModel @Inject constructor(
     private suspend fun fetchInstallments(connectionId: UUID) {
         transactionUseCase.getInstallments(connectionId).collect {
             _installmentsList.value = it
-            println("fetch installments list: $it")
-
         }
     }
 }

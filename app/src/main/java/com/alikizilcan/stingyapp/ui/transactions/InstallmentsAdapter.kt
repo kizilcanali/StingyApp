@@ -18,6 +18,7 @@ class InstallmentsAdapter(private var installmentsList: List<Installments>) :
 
         fun bind(installments: Installments) {
             binding.baseModel = installments
+
             binding.executePendingBindings()
 
             binding.root.setOnClickListener {

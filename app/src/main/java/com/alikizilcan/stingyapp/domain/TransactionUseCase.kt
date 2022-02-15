@@ -38,6 +38,8 @@ class TransactionUseCase @Inject constructor(
         transactionRepository.deleteTransaction(transactionEntity)
     }
 
+    suspend fun deleteInstallments(connectorId: UUID) = transactionRepository.deleteInstallments(connectorId)
+
     suspend fun getBudget(): Flow<Double> {
         return transactionRepository.getBudget()
     }
