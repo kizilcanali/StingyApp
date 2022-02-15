@@ -6,8 +6,6 @@ data class ViewState(
     val category: String
 ) {
 
-    //REORGANIZE
-
     fun setIcon(): Int {
         return when (category) {
             Categories.FUEL.name -> R.drawable.ic_food

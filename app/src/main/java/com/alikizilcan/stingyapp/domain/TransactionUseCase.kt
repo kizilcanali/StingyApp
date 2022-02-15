@@ -2,7 +2,6 @@ package com.alikizilcan.stingyapp.domain
 
 import com.alikizilcan.stingyapp.data.TransactionRepository
 import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
-import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentEntityToInstallmentMapper
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentToInstallmentEntityMapper
@@ -10,9 +9,7 @@ import com.alikizilcan.stingyapp.domain.mapper.TransactionEntityToTransactionMap
 import com.alikizilcan.stingyapp.domain.mapper.TransactionToTransactionEntityMapper
 import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
-import com.alikizilcan.stingyapp.domain.model.UserInformation
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.*
 import javax.inject.Inject
@@ -21,8 +18,8 @@ class TransactionUseCase @Inject constructor(
     private val transactionRepository: TransactionRepository,
     private val transactionEntityMapper: TransactionEntityToTransactionMapper,
     private val transactionMapper: TransactionToTransactionEntityMapper,
-    private val installmentsEntityMapper: InstallmentEntityToInstallmentMapper,
-    private val installmentsMapper: InstallmentToInstallmentEntityMapper
+    private val installmentsMapper: InstallmentToInstallmentEntityMapper,
+    private val installmentsEntityMapper: InstallmentEntityToInstallmentMapper
 ) {
 
     fun fetchTransactions(): Flow<List<Transaction>> {
@@ -54,9 +51,16 @@ class TransactionUseCase @Inject constructor(
         transactionRepository.insertInstallment(installmentsEntity)
     }
 
-    //HERE WILL REORGANIZE
     suspend fun getTransactionsWithInstallments(connectionId: UUID): Flow<List<TransactionsAndInstallments>> {
         return transactionRepository.getTransactionWithInstallments(connectionId)
+    }
+
+    suspend fun getInstallments(testId: UUID): Flow<List<Installments>> {
+        return transactionRepository.getInstallments(testId).map { resource ->
+            resource.map {
+                installmentsEntityMapper.mapFromInstallmentEntity(it)
+            }
+        }
     }
 
 }

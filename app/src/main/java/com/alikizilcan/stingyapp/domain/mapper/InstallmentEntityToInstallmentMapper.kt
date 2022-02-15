@@ -8,7 +8,6 @@ import javax.inject.Inject
 class InstallmentEntityToInstallmentMapper @Inject constructor() {
     fun mapFromInstallmentEntity(entity: InstallmentsEntity): Installments {
         return Installments(
-            id = entity.id,
             name = entity.name.orEmpty(),
             installmentCount = entity.installmentCount.orZero(),
             monthlyPayment = entity.monthlyPayment.orZero(),

@@ -5,21 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.databinding.FragmentTransactionsBinding
+import com.alikizilcan.stingyapp.domain.model.Installments
+import com.alikizilcan.stingyapp.domain.model.Transaction
+import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
 
+/*
+TODO (Bugs & New Features):
+    - Error situations []
+    - isPaid operation []
+    - Home page pie chart []
+*/
+
 @AndroidEntryPoint
-class TransactionsFragment : Fragment() {
+class TransactionsFragment : BaseFragment() {
 
     private val navigationObserver = NavigationObserver()
 
     private lateinit var _binding: FragmentTransactionsBinding
     private val binding get() = _binding
 
-    private val viewModel: TransactionsViewModel by viewModels()
+    override val viewModel: TransactionsViewModel by viewModels()
+    private val transactionsAdapter = TransactionsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,26 +46,16 @@ class TransactionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigationObserver.observeNavigation(
-            viewModel.navigation,
-            findNavController(),
-            viewLifecycleOwner
-        )
+        binding.transactionsRecyclerView.adapter = transactionsAdapter
 
         viewModel.transactionsList.observe(viewLifecycleOwner) { transactions ->
-            viewModel.installmentsList.observe(viewLifecycleOwner) { installments ->
-                val instAdapter = TransactionsAdapter(transactions, installments)
-                transactions.let {
-                    binding.transactionsRecyclerView.adapter = instAdapter
-                    instAdapter.itemDeleteClickListener = {
-                        transactions.remove(it)
-                        viewModel.itemDeleteClickListener(it)
-                        instAdapter.notifyDataSetChanged()
-                    }
-                }
+            transactionsAdapter.submitList(transactions)
+
+            transactionsAdapter.itemDeleteClickListener = {
+                viewModel.itemDeleteClickListener(it)
+                transactionsAdapter.notifyDataSetChanged()
             }
         }
-
         binding.addTransactionButton.setOnClickListener {
             viewModel.addTransaction(TransactionsFragmentDirections.actionTransactionsFragmentToAddTransactionFragment())
         }

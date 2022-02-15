@@ -2,6 +2,7 @@ package com.alikizilcan.stingyapp.ui.add
 
 import android.app.DatePickerDialog
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,11 +11,11 @@ import com.alikizilcan.stingyapp.domain.TransactionUseCase
 import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.*
+import com.alikizilcan.stingyapp.infra.base.BaseViewModel
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -23,9 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTransactionViewModel @Inject constructor(
     private val transactionUseCase: TransactionUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
-    val navigation = Navigation()
     val transactionCategories: List<Category> = Categoriesx.listOfCategories
     val isVisibleView: MutableLiveData<Boolean> = MutableLiveData(false)
     var name: MutableLiveData<String> = MutableLiveData()
@@ -34,6 +34,9 @@ class AddTransactionViewModel @Inject constructor(
     var category: MutableLiveData<String> = MutableLiveData()
     var type: MutableLiveData<String> = MutableLiveData()
     var installmentCount: MutableLiveData<String> = MutableLiveData()
+
+    private var _installmentsList: MutableLiveData<List<Installments>> = MutableLiveData()
+    val installmentsList: LiveData<List<Installments>> = _installmentsList
 
     private var _budget: Double = 0.0
     val budget get() = _budget
@@ -50,26 +53,15 @@ class AddTransactionViewModel @Inject constructor(
     private fun addTransactionOperations(navDirections: NavDirections) {
         viewModelScope.launch {
             val idValue = UUID.randomUUID()
-            transactionUseCase.insertTransaction(
-                Transaction(
-                    id = idValue,
-                    transactionName = name.value,
-                    transactionAmount = amount.value?.toDouble(),
-                    transactionDate = date.value,
-                    category = category.value,
-                    transactionType = type.value,
-                )
-            )
-
             if (isVisibleView.value == false) {
-                setNewAmount(amount.value!!.toDouble())
+                setNewBudget(amount.value!!.toDouble())
                 transactionUseCase.updateBudget(newBudget = budget)
             } else {
-                val monthlyPayment = (amount.value!!.toDouble() / installmentCount.value!!.toInt())
+                val monthlyPayment =
+                    (amount.value!!.toDouble() / installmentCount.value!!.toInt())
                 for (i in 1..installmentCount.value!!.toInt()) {
                     transactionUseCase.insertInstallment(
                         Installments(
-                            id = i.toString(),
                             name = name.value!!,
                             installmentCount = installmentCount.value!!.toInt(),
                             monthlyPayment = monthlyPayment,
@@ -79,8 +71,21 @@ class AddTransactionViewModel @Inject constructor(
                         )
                     )
                 }
+                fetchInstallments(idValue)
             }
-            navigation.navigate(navDirections)
+
+            transactionUseCase.insertTransaction(
+                Transaction(
+                    id = idValue,
+                    transactionName = name.value,
+                    transactionAmount = amount.value?.toDouble(),
+                    transactionDate = date.value,
+                    category = category.value,
+                    transactionType = type.value,
+                    installments = installmentsList.value
+                )
+            )
+            baseNavigation.navigate(navDirections)
         }
     }
 
@@ -89,11 +94,17 @@ class AddTransactionViewModel @Inject constructor(
         return userDate.plusMonths(index.toLong()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
     }
 
-    private fun setNewAmount(amount: Double) {
-        if (type.value == "Expense") {
-            _budget -= amount
-        } else if (type.value == "Income") {
-            _budget += amount
+    private fun setNewBudget(amount: Double) {
+        when (type.value) {
+            "Expense" -> {
+                _budget -= amount
+            }
+            "Income" -> {
+                _budget += amount
+            }
+            else -> {
+                //show snackbar!!
+            }
         }
     }
 
@@ -111,20 +122,13 @@ class AddTransactionViewModel @Inject constructor(
         pickerDialog.show()
     }
 
+    private suspend fun fetchInstallments(connectionId: UUID) {
 
-/*
+        transactionUseCase.getInstallments(connectionId).collect {
+            _installmentsList.value = it
+            println("fetch installments list: $it")
 
-    @DrawableRes
-    fun updateViewState(): Int {
-        return when (categoryName.value?.uppercase()) {
-            Categories.FUEL.name -> R.drawable.ic_food
-            Categories.JEWELRY.name -> R.drawable.ic_diamond
-            Categories.TECHNOLOGY.name -> R.drawable.ic_grocery
-            Categories.TRANSPORTATION.name -> R.drawable.ic_transportation
-            else -> R.drawable.ic_health
         }
     }
-*/
-
 }
 

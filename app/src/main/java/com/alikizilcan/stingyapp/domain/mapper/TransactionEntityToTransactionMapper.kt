@@ -3,6 +3,7 @@ package com.alikizilcan.stingyapp.domain.mapper
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.orZero
+import com.alikizilcan.stingyapp.infra.toUIModel
 import javax.inject.Inject
 
 class TransactionEntityToTransactionMapper @Inject constructor(){
@@ -14,6 +15,7 @@ class TransactionEntityToTransactionMapper @Inject constructor(){
             transactionDate = entity.transactionDate.orEmpty(),
             category = entity.transactionCategory.orEmpty(),
             transactionType = entity.transactionType.orEmpty(),
+            installments = entity.installments!!.toUIModel()
         )
     }
 }

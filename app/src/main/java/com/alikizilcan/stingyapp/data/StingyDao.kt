@@ -5,6 +5,7 @@ import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.UserEntity
+import com.alikizilcan.stingyapp.domain.model.Installments
 import java.util.*
 
 @Dao
@@ -35,6 +36,8 @@ interface StingyDao {
     @Query("SELECT * FROM transactions WHERE id = :connectionId")
     suspend fun getTransactionWithInstallments(connectionId: UUID): List<TransactionsAndInstallments>
 
+    @Query("SELECT * FROM installments WHERE connector_id = :testId")
+    suspend fun getInstallments(testId: UUID): List<InstallmentsEntity>
 
     //@Query("UPDATE transactions SET paid_installments = :paidInstallments")
     //suspend fun updateTransaction(paidInstallments: Int)

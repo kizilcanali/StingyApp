@@ -2,9 +2,7 @@ package com.alikizilcan.stingyapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.alikizilcan.stingyapp.databinding.ActivityMainBinding

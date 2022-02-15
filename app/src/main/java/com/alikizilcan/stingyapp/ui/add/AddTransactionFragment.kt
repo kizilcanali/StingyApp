@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
+import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.di.TYPE
 import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddTransactionFragment : Fragment() {
+class AddTransactionFragment : BaseFragment() {
 
     private var _binding: FragmentAddTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AddTransactionViewModel by viewModels()
-    private val navigationObserver = NavigationObserver()
+    override val viewModel: AddTransactionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +45,9 @@ class AddTransactionFragment : Fragment() {
             )
         }
     }
+
     override fun onResume() {
         super.onResume()
-
         val dropdownAdapter = DropdownItemAdapter(requireContext(), viewModel.transactionCategories)
         binding.categoryList.setAdapter(dropdownAdapter)
 
@@ -55,12 +55,5 @@ class AddTransactionFragment : Fragment() {
             DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
         binding.typeList.setAdapter(dropdownTypeAdapter)
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navigationObserver.observeNavigation(
-            viewModel.navigation,
-            findNavController(),
-            viewLifecycleOwner
-        )
-    }
+
 }

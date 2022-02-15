@@ -2,23 +2,26 @@ package com.alikizilcan.stingyapp.ui.transactions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.databinding.ItemInstallmentsListBinding
 import com.alikizilcan.stingyapp.domain.model.Installments
 
-class InstallmentsAdapter(private val listOfInstallments: List<InstallmentsEntity>) :
+class InstallmentsAdapter(private var installmentsList: List<Installments>) :
     RecyclerView.Adapter<InstallmentsAdapter.InstallmentsViewHolder>() {
 
-    var itemClickListener: (InstallmentsEntity) -> Unit = {}
+    var itemClickListener: (Installments) -> Unit = {}
 
     class InstallmentsViewHolder(
         private val binding: ItemInstallmentsListBinding,
-        private var itemClickListener: (InstallmentsEntity) -> Unit
+        private var itemClickListener: (Installments) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(installments: InstallmentsEntity) {
+        fun bind(installments: Installments) {
             binding.baseModel = installments
+            binding.executePendingBindings()
 
             binding.root.setOnClickListener {
                 itemClickListener(installments)
@@ -29,15 +32,19 @@ class InstallmentsAdapter(private val listOfInstallments: List<InstallmentsEntit
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InstallmentsViewHolder {
         val binding =
             ItemInstallmentsListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return InstallmentsViewHolder(binding, itemClickListener)
+        return InstallmentsViewHolder(
+            binding,
+            itemClickListener,
+        )
     }
 
     override fun onBindViewHolder(holder: InstallmentsViewHolder, position: Int) {
-        val item = listOfInstallments[position]
-        holder.bind(item)
+        holder.bind(installmentsList[position])
     }
 
     override fun getItemCount(): Int {
-        return listOfInstallments.size
+        return installmentsList.size
     }
+
+
 }

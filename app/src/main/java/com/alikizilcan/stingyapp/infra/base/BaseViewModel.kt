@@ -1,4 +1,8 @@
 package com.alikizilcan.stingyapp.infra.base
 
-class BaseViewModel {
+import androidx.lifecycle.ViewModel
+import com.alikizilcan.stingyapp.infra.navigation.Navigation
+
+abstract class BaseViewModel : ViewModel(){
+    val baseNavigation = Navigation()
 }

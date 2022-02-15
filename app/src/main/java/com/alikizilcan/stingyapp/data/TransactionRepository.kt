@@ -4,6 +4,7 @@ import com.alikizilcan.stingyapp.data.model.InstallmentsEntity
 import com.alikizilcan.stingyapp.data.model.TransactionsEntity
 import com.alikizilcan.stingyapp.data.model.relations.TransactionsAndInstallments
 import com.alikizilcan.stingyapp.domain.mapper.InstallmentEntityToInstallmentMapper
+import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.infra.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -36,4 +37,10 @@ class TransactionRepository @Inject constructor(private val stingyLocalDataSourc
     suspend fun getTransactionWithInstallments(connectionId: UUID): Flow<List<TransactionsAndInstallments>> = flow {
         emit(stingyLocalDataSource.getTransactionsWithInstallments(connectionId))
     }
+
+
+    suspend fun getInstallments(testId: UUID) : Flow<List<InstallmentsEntity>> = flow {
+        emit(stingyLocalDataSource.getInstallments(testId))
+    }
+
 }

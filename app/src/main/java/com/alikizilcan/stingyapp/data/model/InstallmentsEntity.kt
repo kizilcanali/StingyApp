@@ -8,8 +8,8 @@ import java.util.*
 
 @Entity(tableName = "installments")
 data class InstallmentsEntity(
-    @PrimaryKey @ColumnInfo(name = "id") val id: String,
-    @ColumnInfo(name = "name") val name: String?,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
+    @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "installment_count") val installmentCount: Int,
     @ColumnInfo(name = "monthly_payment") val monthlyPayment: Double,
     @ColumnInfo(name = "date") val date: String?,
