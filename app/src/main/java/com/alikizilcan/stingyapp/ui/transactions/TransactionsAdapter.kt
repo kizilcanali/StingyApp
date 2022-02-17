@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.databinding.ItemTransactionListBinding
+import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.Categories
 import com.alikizilcan.stingyapp.infra.Category
@@ -18,11 +19,12 @@ class TransactionsAdapter @Inject constructor() :
     ListAdapter<Transaction, TransactionsAdapter.TransactionViewHolder>(DIFF_CALLBACK) {
 
     var itemDeleteClickListener: (Transaction) -> Unit = {}
-
+    var itemCheckBoxListener: (Int, Double, Installments) -> Unit = { Int, Double, Installments ->}
 
     class TransactionViewHolder(
         private val binding: ItemTransactionListBinding,
         private var itemDeleteClickListener: (Transaction) -> Unit,
+
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -31,15 +33,8 @@ class TransactionsAdapter @Inject constructor() :
         fun bind(transaction: Transaction) {
             var isExpanded = false
             binding.baseModel = transaction
-
             binding.categoryIcon.setImageResource(setTransactionIcon(transaction.category!!).icon!!)
-            binding.transactionCard.setCardBackgroundColor(
-                Color.parseColor(
-                    setTransactionIcon(
-                        transaction.category!!
-                    ).color
-                )
-            )
+            binding.transactionCard.setCardBackgroundColor(Color.parseColor(setTransactionIcon(transaction.category!!).color))
             binding.executePendingBindings()
 
             binding.deleteTransactionButton.setOnClickListener { itemDeleteClickListener(transaction) }
@@ -49,7 +44,6 @@ class TransactionsAdapter @Inject constructor() :
             }
 
         }
-
         private fun setTransactionIcon(iconText: String): Category {
             return when (iconText.uppercase()) {
                 //Test Values
@@ -71,14 +65,15 @@ class TransactionsAdapter @Inject constructor() :
             ItemTransactionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TransactionViewHolder(binding, itemDeleteClickListener)
     }
-
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         holder.bind(getItem(position))
         val list = getItem(position).installments
+        var installmentsAdapter = InstallmentsAdapter()
         if (list != null) {
-            var installmentsAdapter = InstallmentsAdapter(list)
+            installmentsAdapter.installmentsList = list
             holder.installmentsRecyclerView.adapter = installmentsAdapter
         }
+        installmentsAdapter.itemCheckBoxListener = itemCheckBoxListener
 
     }
 

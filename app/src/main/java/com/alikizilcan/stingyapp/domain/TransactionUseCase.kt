@@ -59,4 +59,8 @@ class TransactionUseCase @Inject constructor(
         }
     }
 
+    suspend fun updateIsPaid(isPaid: Int, id: Long) = transactionRepository.updateIsPaid(isPaid, id)
+
+    suspend fun updateTransaction(newList: String, id: UUID) = transactionRepository.updateTransaction(newList, id)
+
 }

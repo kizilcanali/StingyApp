@@ -66,7 +66,8 @@ class AddTransactionViewModel @Inject constructor(
                             monthlyPayment = monthlyPayment,
                             date = setupInstallmentMonths(i - 1, date.value!!),
                             isPaid = isPaid.value!!.toInt(),
-                            connectorId = idValue
+                            connectorId = idValue,
+                            id = 0
                         )
                     )
                 }

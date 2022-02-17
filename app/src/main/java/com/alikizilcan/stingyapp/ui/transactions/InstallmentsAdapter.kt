@@ -5,24 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alikizilcan.stingyapp.databinding.ItemInstallmentsListBinding
 import com.alikizilcan.stingyapp.domain.model.Installments
+import com.alikizilcan.stingyapp.infra.toBool
+import com.alikizilcan.stingyapp.infra.toInt
 
-class InstallmentsAdapter(private var installmentsList: List<Installments>) :
+class InstallmentsAdapter :
     RecyclerView.Adapter<InstallmentsAdapter.InstallmentsViewHolder>() {
 
-    var itemClickListener: (Installments) -> Unit = {}
+    var itemCheckBoxListener: (Int, Double, Installments) -> Unit = {Int, Double, Installments -> }
+    var installmentsList: List<Installments> = listOf()
+
+
 
     class InstallmentsViewHolder(
         private val binding: ItemInstallmentsListBinding,
-        private var itemClickListener: (Installments) -> Unit,
-    ) : RecyclerView.ViewHolder(binding.root) {
+        private var itemCheckBoxListener: (Int, Double, Installments) -> Unit,
+        ) : RecyclerView.ViewHolder(binding.root) {
+        //var isBoxChecked : Boolean = false
 
         fun bind(installments: Installments) {
             binding.baseModel = installments
 
+            binding.isPaidCheck.isChecked = installments.isPaid!!.toBool()
             binding.executePendingBindings()
-
-            binding.root.setOnClickListener {
-                itemClickListener(installments)
+            binding.isPaidCheck.setOnClickListener {
+                itemCheckBoxListener(binding.isPaidCheck.isChecked.toInt(), binding.monthlyPayment.text.toString().toDouble(), installments)
             }
         }
     }
@@ -32,16 +38,17 @@ class InstallmentsAdapter(private var installmentsList: List<Installments>) :
             ItemInstallmentsListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return InstallmentsViewHolder(
             binding,
-            itemClickListener,
+            itemCheckBoxListener,
         )
     }
 
     override fun onBindViewHolder(holder: InstallmentsViewHolder, position: Int) {
         holder.bind(installmentsList[position])
+        //holder.isBoxChecked = installmentsList[position].isPaid!!.toBool()
+
     }
 
     override fun getItemCount(): Int {
         return installmentsList.size
     }
-
 }

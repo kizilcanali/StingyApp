@@ -39,7 +39,10 @@ interface StingyDao {
     @Query("DELETE FROM installments WHERE connector_id = :connectorId")
     suspend fun deleteInstallments(connectorId: UUID)
 
-    //@Query("UPDATE transactions SET paid_installments = :paidInstallments")
-    //suspend fun updateTransaction(paidInstallments: Int)
+    @Query("UPDATE installments SET isPaid = :isPaid WHERE id = :id")
+    suspend fun updateIsPaid(isPaid: Int, id: Long)
+
+    @Query("UPDATE transactions SET installments = :newList WHERE id = :id")
+    suspend fun updateTransaction(newList: String, id: UUID)
 
 }

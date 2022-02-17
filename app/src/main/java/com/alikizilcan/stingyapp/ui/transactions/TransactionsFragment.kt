@@ -47,7 +47,11 @@ class TransactionsFragment : BaseFragment() {
                 viewModel.itemDeleteClickListener(it)
                 transactionsAdapter.notifyDataSetChanged()
             }
+
         }
+
+        transactionsAdapter.itemCheckBoxListener = viewModel.itemCheckBoxListener
+
         binding.addTransactionButton.setOnClickListener {
             viewModel.addTransaction(TransactionsFragmentDirections.actionTransactionsFragmentToAddTransactionFragment())
         }

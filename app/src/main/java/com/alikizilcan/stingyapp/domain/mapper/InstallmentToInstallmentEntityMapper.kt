@@ -13,7 +13,8 @@ class InstallmentToInstallmentEntityMapper @Inject constructor() {
             monthlyPayment = installment.monthlyPayment.orZero(),
             date = installment.date,
             isPaid = installment.isPaid.orZero(),
-            connectorId = installment.connectorId
+            connectorId = installment.connectorId,
+            id = installment.id
         )
     }
 }

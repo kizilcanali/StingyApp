@@ -6,10 +6,11 @@ import java.util.*
 
 @Parcelize
 data class Installments(
+    val id: Long,
     val name: String,
     val installmentCount: Int,
     val monthlyPayment: Double,
     val date: String,
-    val isPaid: Int?,
+    var isPaid: Int?,
     val connectorId: UUID
 ) : Parcelable

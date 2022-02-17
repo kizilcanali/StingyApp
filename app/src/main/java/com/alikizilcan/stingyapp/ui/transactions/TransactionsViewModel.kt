@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.alikizilcan.stingyapp.domain.TransactionUseCase
+import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.base.BaseViewModel
+import com.alikizilcan.stingyapp.infra.toDataModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -20,24 +23,63 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     private val _transactionsList: MutableLiveData<MutableList<Transaction>> = MutableLiveData()
     val transactionsList: LiveData<MutableList<Transaction>> = _transactionsList
 
+    private var _installmentsList: MutableLiveData<List<Installments>> = MutableLiveData()
+    val installmentsList: LiveData<List<Installments>> = _installmentsList
+
+    private var _budget: Double = 0.0
+    val budget get() = _budget
+
     val itemDeleteClickListener: (Transaction) -> Unit = {
         deleteTransaction(it)
-        if(it.installments != null){
+        if (it.installments != null) {
             deleteInstallments(it.id)
         }
     }
 
+    val itemCheckBoxListener: (Int, Double, Installments) -> Unit =
+        { isPaid, monthlyPayment, installments ->
+            viewModelScope.launch {
+                if (isPaid == 1) {
+                    setBudget(monthlyPayment)
+                    updateIsPaid(1, installments.id)
+                    fetchInstallments(installments.connectorId)
+                    updateTransaction(installmentsList.value!!.toDataModel(), installments.connectorId)
+                } else {
+                    updateIsPaid(0, installments.id)
+                    fetchInstallments(installments.connectorId)
+                    updateTransaction(installmentsList.value!!.toDataModel(), installments.connectorId)
+                }
+            }
+        }
+
     init {
         fetchTransactions()
+        fetchBudget()
+    }
+
+    private fun setBudget(amount: Double) {
+        viewModelScope.launch {
+            _budget -= amount
+            transactionUseCase.updateBudget(newBudget = budget)
+        }
+    }
+
+    private fun updateIsPaid(isPaidParameter: Int, id: Long) {
+        viewModelScope.launch {
+            transactionUseCase.updateIsPaid(isPaidParameter, id)
+        }
     }
 
     private fun fetchTransactions() {
         viewModelScope.launch {
             transactionUseCase.fetchTransactions().collect {
                 _transactionsList.value = it.toMutableList()
-                println("fetch transactions: $it")
             }
         }
+    }
+
+    private fun fetchBudget() {
+        runBlocking { transactionUseCase.getBudget().collect { _budget = it } }
     }
 
     private fun deleteTransaction(transaction: Transaction) {
@@ -47,7 +89,7 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         }
     }
 
-    private fun deleteInstallments(connectorId: UUID){
+    private fun deleteInstallments(connectorId: UUID) {
         viewModelScope.launch {
             transactionUseCase.deleteInstallments(connectorId)
         }
@@ -57,4 +99,13 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         baseNavigation.navigate(navDirections)
     }
 
+    private suspend fun fetchInstallments(connectionId: UUID) {
+        transactionUseCase.getInstallments(connectionId).collect {
+            _installmentsList.value = it
+        }
+    }
+
+    private suspend fun updateTransaction(newList: String, id: UUID) {
+        transactionUseCase.updateTransaction(newList, id)
+    }
 }

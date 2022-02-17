@@ -23,6 +23,9 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
     suspend fun getInstallments(testId: UUID) = stingyDao.getInstallments(testId)
 
     suspend fun deleteInstallments(connectorId: UUID) = stingyDao.deleteInstallments(connectorId)
-    //suspend fun updateTransaction(paidInstallment: Int) = stingyDao.updateTransaction(paidInstallment)
+
+    suspend fun updateIsPaid(isPaid: Int, id: Long) = stingyDao.updateIsPaid(isPaid, id)
+
+    suspend fun updateTransaction(newList: String, id: UUID) = stingyDao.updateTransaction(newList, id)
 
 }

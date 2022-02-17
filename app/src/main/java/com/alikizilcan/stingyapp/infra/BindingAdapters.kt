@@ -2,6 +2,7 @@ package com.alikizilcan.stingyapp.infra
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,11 @@ fun setAmountDecoration(text: TextView, type: String, textString: String){
         text.text = "-$textString"
         text.setTextColor(R.color.red)
     }
+}
+
+@BindingAdapter("setChecked")
+fun setCheckedValue(view: CheckBox, isPaid: Int){
+    view.isSelected = isPaid == 1
 }
 
 

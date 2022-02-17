@@ -35,4 +35,8 @@ class TransactionRepository @Inject constructor(private val stingyLocalDataSourc
 
     suspend fun deleteInstallments(connectorId: UUID) = stingyLocalDataSource.deleteInstallments(connectorId)
 
+    suspend fun updateIsPaid(isPaid: Int, id: Long) = stingyLocalDataSource.updateIsPaid(isPaid, id)
+
+    suspend fun updateTransaction(newList: String, id: UUID) = stingyLocalDataSource.updateTransaction(newList, id)
+
 }

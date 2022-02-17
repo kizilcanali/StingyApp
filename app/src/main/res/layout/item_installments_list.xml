@@ -5,7 +5,7 @@
             name="baseModel"
             type="com.alikizilcan.stingyapp.domain.model.Installments" />
         <variable
-            name="transactionVm"
+            name="transactionVM"
             type="com.alikizilcan.stingyapp.ui.transactions.TransactionsViewModel" />
     </data>
 
