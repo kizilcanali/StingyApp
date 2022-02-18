@@ -12,6 +12,9 @@
     <color name="gray_bottom">#E5E5E5</color>
     <color name="red">#FF3B30</color>
     <color name="green">#34C759</color>
+    <color name="transaction_bg">#3E497A</color>
+    <color name="textColor">#F0F0F0</color>
+    <color name="button_bg">#F1D00A</color>
 
     <array name="pieChartColors">
         <item>#304567</item>

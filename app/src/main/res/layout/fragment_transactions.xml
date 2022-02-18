@@ -12,8 +12,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.transactions.TransactionsFragment">
-
+        tools:context=".ui.transactions.TransactionsFragment"
+        android:background="@color/transaction_bg"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transactionsRecyclerView"
@@ -35,7 +36,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:text="Add"
-            android:backgroundTint="@color/dark_blue"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/button_bg"
             android:layout_marginBottom="?android:attr/actionBarSize"
             />
 

@@ -19,18 +19,6 @@ fun setVisibility(view: View, state:Boolean){
     }
 }
 
-@SuppressLint("ResourceAsColor")
-@BindingAdapter("setAmountDecoration")
-fun setAmountDecoration(text: TextView, type: String, textString: String){
-    if(type == "INCOME"){
-        text.text = "+$textString"
-        text.setTextColor(R.color.green)
-    }else {
-        text.text = "-$textString"
-        text.setTextColor(R.color.red)
-    }
-}
-
 @BindingAdapter("setChecked")
 fun setCheckedValue(view: CheckBox, isPaid: Int){
     view.isSelected = isPaid == 1

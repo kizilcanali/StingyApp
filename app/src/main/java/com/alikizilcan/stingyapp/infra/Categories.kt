@@ -1,6 +1,5 @@
 package com.alikizilcan.stingyapp.infra
 
-import android.graphics.Color
 import com.alikizilcan.stingyapp.R
 
 object Categoriesx{
@@ -27,5 +26,8 @@ enum class Categories(transactionCategory: String){
     TRANSPORTATION("Transportation"),
     FUEL("Fuel"),
     TECHNOLOGY("Technology"),
-    JEWELRY("Jewelry")
+    JEWELRY("Jewelry"),
+    FOODBEVERAGE("Food and Beverage"),
+
+
 }

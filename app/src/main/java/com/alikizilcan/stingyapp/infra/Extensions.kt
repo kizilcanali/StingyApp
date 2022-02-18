@@ -32,3 +32,4 @@ fun String.toUIModel(): List<Installments> {
     }
 
 }
+
