@@ -1,18 +1,13 @@
 package com.alikizilcan.stingyapp.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.databinding.FragmentHomeBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.colorsList
-import com.alikizilcan.stingyapp.infra.navigation.NavigationObserver
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -46,21 +41,18 @@ class HomeFragment : BaseFragment() {
             println("pieDataSet $pieDataSet")
             pieDataSet.valueTextSize = 12f
             pieDataSet.colors = colorsList
-            //set colors
+
             val pieData = PieData(pieDataSet)
             println("pieData $pieData")
-
             pieData.setDrawValues(true)
 
             with(binding.pieChart){
                 setUsePercentValues(true)
                 description.text = ""
-
                 isDrawHoleEnabled = true
-                setTouchEnabled(false)
+                setTouchEnabled(true)
                 setDrawEntryLabels(false)
-
-                setExtraOffsets(20f, 0f, 20f, 20f)
+                setExtraOffsets(0f, 0f, 0f, 50f)
                 isRotationEnabled = false
                 legend.orientation = Legend.LegendOrientation.VERTICAL
                 legend.isWordWrapEnabled = true

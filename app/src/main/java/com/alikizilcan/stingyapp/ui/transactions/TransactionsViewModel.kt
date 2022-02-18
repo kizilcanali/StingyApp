@@ -40,15 +40,13 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         { isPaid, monthlyPayment, installments ->
             viewModelScope.launch {
                 if (isPaid == 1) {
-                    setBudget(monthlyPayment)
                     updateIsPaid(1, installments.id)
-                    fetchInstallments(installments.connectorId)
-                    updateTransaction(installmentsList.value!!.toDataModel(), installments.connectorId)
                 } else {
                     updateIsPaid(0, installments.id)
-                    fetchInstallments(installments.connectorId)
-                    updateTransaction(installmentsList.value!!.toDataModel(), installments.connectorId)
                 }
+                setBudget(monthlyPayment, isPaid)
+                fetchInstallments(installments.connectorId)
+                updateTransaction(installmentsList.value!!.toDataModel(), installments.connectorId)
             }
         }
 
@@ -57,17 +55,19 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         fetchBudget()
     }
 
-    private fun setBudget(amount: Double) {
+    private fun setBudget(amount: Double, state: Int) {
         viewModelScope.launch {
-            _budget -= amount
+            if(state == 1){
+                _budget -= amount
+            } else {
+                _budget += amount
+            }
             transactionUseCase.updateBudget(newBudget = budget)
         }
     }
 
-    private fun updateIsPaid(isPaidParameter: Int, id: Long) {
-        viewModelScope.launch {
+    private suspend fun updateIsPaid(isPaidParameter: Int, id: Long) {
             transactionUseCase.updateIsPaid(isPaidParameter, id)
-        }
     }
 
     private fun fetchTransactions() {

@@ -74,7 +74,6 @@ class TransactionsAdapter @Inject constructor() :
             holder.installmentsRecyclerView.adapter = installmentsAdapter
         }
         installmentsAdapter.itemCheckBoxListener = itemCheckBoxListener
-
     }
 
     companion object {

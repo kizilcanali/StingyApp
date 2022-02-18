@@ -73,7 +73,6 @@ class AddTransactionViewModel @Inject constructor(
                 }
                 fetchInstallments(idValue)
             }
-
             transactionUseCase.insertTransaction(
                 Transaction(
                     id = idValue,

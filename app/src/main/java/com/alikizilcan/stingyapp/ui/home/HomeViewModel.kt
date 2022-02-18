@@ -43,19 +43,7 @@ class HomeViewModel @Inject constructor(
             homeUseCase.getTotalTransactionByCategory().collect {
                 _categoriesData.value = it
             }
-
-            println("come data ${homeUseCase.getTotalTransactionByCategory()}")
-            println("cat data ${categoriesData.value}")
-            /*homeUseCase.getTotalTransactionByCategory().collect {
-                if (it != null) {
-                    for (i: String in it.keys) {
-                        _categoriesData.value!!.add(PieEntry(it[i]!!.toFloat(), i))
-                        println(categoriesData.value)
-                    }
-                }
-            }*/
         }
     }
-
 
 }

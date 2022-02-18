@@ -9,14 +9,6 @@ import com.alikizilcan.stingyapp.databinding.FragmentTransactionsBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-/*
-TODO (Bugs & New Features):
-    - Error situations []
-    - isPaid operation []
-    - Home page pie chart []
-    - UI Re-make []
-*/
-
 @AndroidEntryPoint
 class TransactionsFragment : BaseFragment() {
 
@@ -48,9 +40,9 @@ class TransactionsFragment : BaseFragment() {
                 transactionsAdapter.notifyDataSetChanged()
             }
 
+            transactionsAdapter.itemCheckBoxListener = viewModel.itemCheckBoxListener
         }
 
-        transactionsAdapter.itemCheckBoxListener = viewModel.itemCheckBoxListener
 
         binding.addTransactionButton.setOnClickListener {
             viewModel.addTransaction(TransactionsFragmentDirections.actionTransactionsFragmentToAddTransactionFragment())
