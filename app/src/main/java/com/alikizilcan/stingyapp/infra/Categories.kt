@@ -1,5 +1,6 @@
 package com.alikizilcan.stingyapp.infra
 
+import android.graphics.Color
 import com.alikizilcan.stingyapp.R
 
 object Categoriesx{

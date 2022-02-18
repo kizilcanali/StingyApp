@@ -14,7 +14,9 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
         stingyDao.deleteTransaction(transactionsEntity)
 
     suspend fun getBudget() = stingyDao.getBudget()
+
     suspend fun updateBudget(newBudget: Double) = stingyDao.updateBudget(newBudget)
+
     suspend fun fetchTransactions() = stingyDao.fetchTransactions()
 
     suspend fun insertInstallment(installment: InstallmentsEntity) =
@@ -27,5 +29,8 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
     suspend fun updateIsPaid(isPaid: Int, id: Long) = stingyDao.updateIsPaid(isPaid, id)
 
     suspend fun updateTransaction(newList: String, id: UUID) = stingyDao.updateTransaction(newList, id)
+
+    suspend fun getTotalTransactionByCategory() = stingyDao.getTotalTransactionByCategory()
+
 
 }

@@ -39,4 +39,8 @@ class TransactionRepository @Inject constructor(private val stingyLocalDataSourc
 
     suspend fun updateTransaction(newList: String, id: UUID) = stingyLocalDataSource.updateTransaction(newList, id)
 
+    suspend fun getTotalTransactionByCategory() : Flow<Map<String,Double>> = flow{
+        emit(stingyLocalDataSource.getTotalTransactionByCategory())
+    }
+
 }

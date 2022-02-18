@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alikizilcan.stingyapp.domain.HomeUseCase
+import com.alikizilcan.stingyapp.infra.base.BaseViewModel
 import com.alikizilcan.stingyapp.infra.navigation.Navigation
+import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -14,15 +16,18 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUseCase: HomeUseCase
-) : ViewModel() {
-
-    val navigation = Navigation()
+) : BaseViewModel() {
 
     private var _budget: MutableLiveData<Double> = MutableLiveData()
     val budget: LiveData<Double> = _budget
 
+    private var _categoriesData: MutableLiveData<ArrayList<PieEntry>> = MutableLiveData()
+    val categoriesData: LiveData<ArrayList<PieEntry>> = _categoriesData
+
+
     init {
         getBudget()
+        getTransactionsByCategory()
     }
 
     private fun getBudget() {
@@ -32,4 +37,25 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    private fun getTransactionsByCategory() {
+        viewModelScope.launch {
+            homeUseCase.getTotalTransactionByCategory().collect {
+                _categoriesData.value = it
+            }
+
+            println("come data ${homeUseCase.getTotalTransactionByCategory()}")
+            println("cat data ${categoriesData.value}")
+            /*homeUseCase.getTotalTransactionByCategory().collect {
+                if (it != null) {
+                    for (i: String in it.keys) {
+                        _categoriesData.value!!.add(PieEntry(it[i]!!.toFloat(), i))
+                        println(categoriesData.value)
+                    }
+                }
+            }*/
+        }
+    }
+
+
 }

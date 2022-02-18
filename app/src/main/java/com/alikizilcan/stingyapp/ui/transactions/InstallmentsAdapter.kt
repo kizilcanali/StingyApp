@@ -14,17 +14,13 @@ class InstallmentsAdapter :
     var itemCheckBoxListener: (Int, Double, Installments) -> Unit = {Int, Double, Installments -> }
     var installmentsList: List<Installments> = listOf()
 
-
-
     class InstallmentsViewHolder(
         private val binding: ItemInstallmentsListBinding,
         private var itemCheckBoxListener: (Int, Double, Installments) -> Unit,
         ) : RecyclerView.ViewHolder(binding.root) {
-        //var isBoxChecked : Boolean = false
 
         fun bind(installments: Installments) {
             binding.baseModel = installments
-
             binding.isPaidCheck.isChecked = installments.isPaid!!.toBool()
             binding.executePendingBindings()
             binding.isPaidCheck.setOnClickListener {
@@ -44,10 +40,7 @@ class InstallmentsAdapter :
 
     override fun onBindViewHolder(holder: InstallmentsViewHolder, position: Int) {
         holder.bind(installmentsList[position])
-        //holder.isBoxChecked = installmentsList[position].isPaid!!.toBool()
-
     }
-
     override fun getItemCount(): Int {
         return installmentsList.size
     }

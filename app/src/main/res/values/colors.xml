@@ -13,4 +13,14 @@
     <color name="red">#FF3B30</color>
     <color name="green">#34C759</color>
 
+    <array name="pieChartColors">
+        <item>#304567</item>
+        <item>#309967</item>
+        <item>#476567</item>
+        <item>#890567</item>
+        <item>#a35567</item>
+        <item>#ff5f67</item>
+        <item>#3ca567</item>
+    </array>
+
 </resources>
