@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +21,8 @@ class HomeViewModel @Inject constructor(
 
     private var _budget: MutableLiveData<Double> = MutableLiveData()
     val budget: LiveData<Double> = _budget
+
+
 
     private var _categoriesData: MutableLiveData<ArrayList<PieEntry>> = MutableLiveData()
     val categoriesData: LiveData<ArrayList<PieEntry>> = _categoriesData

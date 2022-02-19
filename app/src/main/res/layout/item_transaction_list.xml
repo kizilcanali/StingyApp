@@ -34,7 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 app:layout_constraintBottom_toTopOf="@id/installmentsRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +43,10 @@
 
                 <ImageView
                     android:id="@+id/categoryIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.2"
                     tools:src="@drawable/ic_car"
                     />
 
@@ -54,10 +55,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="@{baseModel.transactionName}"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     tools:text="Opet Fuel"
                     android:textColor="@color/textColor"
                     />
@@ -67,11 +68,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="0.2"
                     android:gravity="center"
                     android:text="@{baseModel.transactionDate}"
                     tools:text="@tools:sample/date/ddmmyy"
                     android:textColor="@color/textColor"
+                    android:textSize="12sp"
                     />
 
                 <TextView
@@ -82,15 +84,15 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="@{baseModel.transactionAmount.toString()}"
+                    setFormatText="@{baseModel.transactionAmount}"
                     android:textColor="@color/red"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     tools:text="- 458TL" />
 
                 <ImageButton
                     android:id="@+id/deleteTransactionButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:background="@drawable/ic_delete" />
             </LinearLayout>

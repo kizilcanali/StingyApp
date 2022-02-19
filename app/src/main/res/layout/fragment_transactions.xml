@@ -31,16 +31,15 @@
         <Button
             android:id="@+id/addTransactionButton"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Add"
+            android:text="@string/add_button_text"
             android:textColor="@color/black"
             android:backgroundTint="@color/button_bg"
             android:layout_marginBottom="?android:attr/actionBarSize"
             />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

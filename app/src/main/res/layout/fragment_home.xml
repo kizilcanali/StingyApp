@@ -21,8 +21,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutTop"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@color/dark_blue"
+            android:layout_height="120dp"
+            android:background="@color/budget_bg"
             android:orientation="horizontal"
             android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif-monospace"
-                android:text="@{Double.toString(viewModel.budget)}"
+                setFormatText="@{viewModel.budget}"
+                setBudgetColor="@{viewModel.budget}"
                 android:textColor="@color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +54,8 @@
                 android:textColor="@color/white"
                 android:fontFamily="serif-monospace"
                 app:layout_constraintBaseline_toBaselineOf="@id/budgetText"
-                app:layout_constraintStart_toEndOf="@id/budgetText" />
+                app:layout_constraintStart_toEndOf="@id/budgetText"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.github.mikephil.charting.charts.PieChart

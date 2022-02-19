@@ -1,10 +1,8 @@
 package com.alikizilcan.stingyapp.ui.transactions
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -39,14 +37,13 @@ class TransactionsAdapter @Inject constructor() :
             binding.categoryIcon.setImageResource(setTransactionIcon(transaction.category!!).icon!!)
             binding.transactionCard.setCardBackgroundColor(Color.parseColor(setTransactionIcon(transaction.category!!).color))
             binding.transactionAmount.setTextColor(Color.parseColor(setAmountColor(transaction.transactionType!!)))
-
             binding.executePendingBindings()
+
             binding.deleteTransactionButton.setOnClickListener { itemDeleteClickListener(transaction) }
             binding.root.setOnClickListener {
                 isExpanded = !isExpanded
                 binding.installmentsRecyclerView.isVisible = isExpanded
             }
-
         }
 
         private fun setTransactionIcon(iconText: String): Category {

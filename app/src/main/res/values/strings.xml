@@ -12,5 +12,6 @@
     <string name="category_input">Category</string>
     <string name="transaction_date">Date</string>
     <string name="tl_icon_text">₺</string>
-    <string name="saveButtonText">SAVE</string>
+    <string name="save_button_text">SAVE</string>
+    <string name="add_button_text">Add</string>
 </resources>

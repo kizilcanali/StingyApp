@@ -1,5 +1,6 @@
 package com.alikizilcan.stingyapp.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,7 @@ class HomeFragment : BaseFragment() {
             println("pieDataSet $pieDataSet")
             pieDataSet.valueTextSize = 12f
             pieDataSet.colors = colorsList
-
+            // pieDataSet.color
             val pieData = PieData(pieDataSet)
             println("pieData $pieData")
             pieData.setDrawValues(true)
@@ -50,6 +51,7 @@ class HomeFragment : BaseFragment() {
                 setUsePercentValues(true)
                 description.text = ""
                 isDrawHoleEnabled = true
+                setHoleColor(Color.parseColor("#E6DDC4"))
                 setTouchEnabled(true)
                 setDrawEntryLabels(false)
                 setExtraOffsets(0f, 0f, 0f, 50f)
