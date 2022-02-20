@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="serif-monospace"
                 setFormatText="@{viewModel.budget}"
-                setBudgetColor="@{viewModel.budget}"
                 android:textColor="@color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +56,8 @@
                 app:layout_constraintStart_toEndOf="@id/budgetText"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"

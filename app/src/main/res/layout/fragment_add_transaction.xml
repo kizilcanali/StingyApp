@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context=".ui.add.AddTransactionFragment">
+        tools:context=".ui.add.AddTransactionFragment"
+        android:background="@color/transaction_bg"
+        >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionNameInput"
@@ -28,7 +30,6 @@
             app:startIconDrawable="@drawable/ic_payment">
 
             <AutoCompleteTextView
-                android:id="@+id/transactionNameInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
@@ -48,7 +49,6 @@
             app:startIconDrawable="@drawable/ic_amount">
 
             <AutoCompleteTextView
-                android:id="@+id/transactionAmountInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
@@ -141,7 +141,6 @@
             app:startIconDrawable="@drawable/ic_month">
 
             <AutoCompleteTextView
-                android:id="@+id/installmentMonthInputin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"

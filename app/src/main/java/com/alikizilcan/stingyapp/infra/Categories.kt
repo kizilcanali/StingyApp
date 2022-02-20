@@ -27,7 +27,17 @@ enum class Categories(transactionCategory: String){
     FUEL("Fuel"),
     TECHNOLOGY("Technology"),
     JEWELRY("Jewelry"),
-    FOODBEVERAGE("Food and Beverage"),
+    FOODANDBEVERAGE("Food and Beverage"),
+    GROCERIES("Groceries"),
+    CLOTHING("Clothing"),
+    HEALTH("Health"),
+    SPORT("Sport"),
+    BILL("Bill"),
+    PET("Pet"),
+    OTHERS("Others"),
+    GIFT("Gift"),
+    HOUSE("House"),
+    CAR("Car"),
 
 
 }

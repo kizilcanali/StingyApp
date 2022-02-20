@@ -36,15 +36,12 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.categoriesData.observe(viewLifecycleOwner){
+        viewModel.categoriesData.observe(viewLifecycleOwner){ list ->
 
-            val pieDataSet = PieDataSet(it, "label")
-            println("pieDataSet $pieDataSet")
+            val pieDataSet = PieDataSet(list, "")
             pieDataSet.valueTextSize = 12f
             pieDataSet.colors = colorsList
-            // pieDataSet.color
             val pieData = PieData(pieDataSet)
-            println("pieData $pieData")
             pieData.setDrawValues(true)
 
             with(binding.pieChart){
@@ -58,14 +55,9 @@ class HomeFragment : BaseFragment() {
                 isRotationEnabled = false
                 legend.orientation = Legend.LegendOrientation.VERTICAL
                 legend.isWordWrapEnabled = true
-
                 data = pieData
                 invalidate()
             }
         }
-
-
-
     }
-
 }

@@ -24,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/transaction_bg"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,7 +61,10 @@
                     android:text="@{baseModel.transactionName}"
                     android:textSize="14sp"
                     tools:text="Opet Fuel"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/dark"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+
                     />
 
                 <TextView
@@ -72,7 +76,7 @@
                     android:gravity="center"
                     android:text="@{baseModel.transactionDate}"
                     tools:text="@tools:sample/date/ddmmyy"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/dark"
                     android:textSize="12sp"
                     />
 
@@ -85,7 +89,6 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     setFormatText="@{baseModel.transactionAmount}"
-                    android:textColor="@color/red"
                     android:textSize="12sp"
                     tools:text="- 458TL" />
 

@@ -10,9 +10,12 @@
     <color name="dark_blue">#0075FF</color>
     <color name="gray">#8E8E93</color>
     <color name="gray_bottom">#E5E5E5</color>
-    <color name="red">#FF3B30</color>
+    <color name="red">#CE1212</color>
+    <color name="red_dark">#810000</color>
+    <color name="red_delete">#DA0037</color>
+    <color name="dark">#1B1717</color>
     <color name="green">#34C759</color>
-    <color name="transaction_bg">#E6DDC4</color>
+    <color name="transaction_bg">#EEEBDD</color>
     <color name="textColor">#F0F0F0</color>
     <color name="button_bg">#F1D00A</color>
     <color name="budget_bg">#181D31</color>
