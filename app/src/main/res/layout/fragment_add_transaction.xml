@@ -15,7 +15,7 @@
         android:paddingHorizontal="25dp"
         android:paddingVertical="10dp"
         tools:context=".ui.add.AddTransactionFragment"
-        android:background="@color/transaction_bg"
+        android:background="@color/dark"
         >
 
         <com.google.android.material.textfield.TextInputLayout
@@ -29,7 +29,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_payment">
+            app:startIconDrawable="@drawable/ic_payment"
+            app:boxBackgroundColor="@color/transaction_bg">
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -49,7 +50,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionNameInput"
-            app:startIconDrawable="@drawable/ic_amount">
+            app:startIconDrawable="@drawable/ic_amount"
+            app:boxBackgroundColor="@color/transaction_bg">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -62,20 +64,22 @@
             android:id="@+id/transactionDateInputButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/installmentMonthInput"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/installmentMonthInput"
-            app:layout_constraintEnd_toEndOf="@id/installmentMonthInput"
-
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Will Be Date Picker Button"
             />
         <TextView
             android:id="@+id/showDateText"
-            android:layout_width="150dp"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:text="@={viewModel.date}"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/transaction_bg"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -90,7 +94,8 @@
             android:hint="@string/category_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput">
+            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput"
+            app:boxBackgroundColor="@color/transaction_bg">
 
             <AutoCompleteTextView
                 android:id="@+id/categoryList"
@@ -114,7 +119,8 @@
             app:layout_constraintEnd_toStartOf="@id/hasInstallmentCheck"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionCategoryInput"
-            app:startIconDrawable="@drawable/ic_transactions">
+            app:startIconDrawable="@drawable/ic_transactions"
+            app:boxBackgroundColor="@color/transaction_bg">
 
             <AutoCompleteTextView
                 android:id="@+id/typeList"
@@ -133,7 +139,10 @@
             app:layout_constraintBottom_toBottomOf="@id/transactionType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/transactionType"
-            app:layout_constraintTop_toTopOf="@id/transactionType" />
+            app:layout_constraintTop_toTopOf="@id/transactionType"
+            android:buttonTint="@color/transaction_bg"
+            android:textColor="@color/transaction_bg"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/installmentMonthInput"
@@ -147,7 +156,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionType"
-            app:startIconDrawable="@drawable/ic_month">
+            app:startIconDrawable="@drawable/ic_month"
+            app:boxBackgroundColor="@color/transaction_bg">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -160,12 +170,12 @@
             android:id="@+id/saveButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_blue"
+            android:backgroundTint="@color/red_dark"
             android:text="@string/save_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Widget.MaterialComponents.Button"
+            android:textColor="#EDEDED"
              />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
