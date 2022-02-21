@@ -4,11 +4,9 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.databinding.ItemInstallmentsListBinding
 import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.infra.Categories
-import com.alikizilcan.stingyapp.infra.Category
 import com.alikizilcan.stingyapp.infra.toBool
 import com.alikizilcan.stingyapp.infra.toInt
 
@@ -29,7 +27,7 @@ class InstallmentsAdapter :
 
             binding.baseModel = installments
             binding.isPaidCheck.isChecked = installments.isPaid!!.toBool()
-            binding.installmentLayout.setBackgroundColor( Color.parseColor(setInstallmentsBackground(categoryText)))
+            //binding.installmentLayout.setBackgroundColor( Color.parseColor(setInstallmentsBackground(categoryText)))
             binding.executePendingBindings()
             binding.isPaidCheck.setOnClickListener {
                 itemCheckBoxListener(binding.isPaidCheck.isChecked.toInt(), binding.monthlyPayment.text.toString().toDouble(), installments)

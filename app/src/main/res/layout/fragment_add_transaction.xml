@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.alikizilcan.stingyapp.ui.add.AddTransactionViewModel" />
@@ -13,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="10dp"
         tools:context=".ui.add.AddTransactionFragment"
         android:background="@color/transaction_bg"
         >
@@ -21,6 +21,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionNameInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/transaction_input"
@@ -28,7 +30,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:startIconDrawable="@drawable/ic_payment">
-
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,6 +41,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionAmountInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/amount_input"
@@ -57,13 +60,13 @@
 
         <Button
             android:id="@+id/transactionDateInputButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_date"
-            app:layout_constraintEnd_toStartOf="@id/showDateText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/installmentMonthInput"
+            app:layout_constraintTop_toBottomOf="@id/installmentMonthInput"
+            app:layout_constraintEnd_toEndOf="@id/installmentMonthInput"
 
+            />
         <TextView
             android:id="@+id/showDateText"
             android:layout_width="150dp"
@@ -71,21 +74,23 @@
             android:gravity="center"
             android:text="@={viewModel.date}"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/transactionDateInputButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/transactionDateInputButton"
-            app:layout_constraintTop_toTopOf="@id/transactionDateInputButton" />
+            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionCategoryInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="@string/category_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton">
+            app:layout_constraintTop_toBottomOf="@id/transactionAmountInput">
 
             <AutoCompleteTextView
                 android:id="@+id/categoryList"
@@ -93,13 +98,16 @@
                 android:layout_height="match_parent"
                 android:inputType="none"
                 android:text="@={viewModel.category}" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionType"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/transaction_type"
@@ -114,7 +122,6 @@
                 android:layout_height="match_parent"
                 android:inputType="none"
                 android:text="@={viewModel.type}" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
@@ -131,6 +138,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/installmentMonthInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
             setVisibility="@{viewModel.isVisibleView}"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -155,7 +164,9 @@
             android:text="@string/save_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/installmentMonthInput" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/Widget.MaterialComponents.Button"
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -86,6 +86,8 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         viewModelScope.launch {
             _transactionsList.value?.remove(transaction)
             transactionUseCase.deleteTransaction(transaction)
+            val updateBudget = _budget - transaction.transactionAmount!!
+            transactionUseCase.updateBudget(updateBudget)
         }
     }
 

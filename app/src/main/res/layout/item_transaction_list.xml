@@ -59,12 +59,13 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="@{baseModel.transactionName}"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     tools:text="Opet Fuel"
                     android:textColor="@color/dark"
                     android:ellipsize="end"
                     android:singleLine="true"
-
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-thin"
                     />
 
                 <TextView
@@ -78,6 +79,8 @@
                     tools:text="@tools:sample/date/ddmmyy"
                     android:textColor="@color/dark"
                     android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:fontFamily="monospace"
                     />
 
                 <TextView
@@ -90,7 +93,10 @@
                     android:gravity="center"
                     setFormatText="@{baseModel.transactionAmount}"
                     android:textSize="12sp"
-                    tools:text="- 458TL" />
+                    tools:text="- 458TL"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-thin"
+                    />
 
                 <ImageButton
                     android:id="@+id/deleteTransactionButton"

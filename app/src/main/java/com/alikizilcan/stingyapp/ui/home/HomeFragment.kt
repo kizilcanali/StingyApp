@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import com.alikizilcan.stingyapp.databinding.FragmentHomeBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.colorsList
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.formatter.PercentFormatter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,20 +43,28 @@ class HomeFragment : BaseFragment() {
             val pieDataSet = PieDataSet(list, "")
             pieDataSet.valueTextSize = 12f
             pieDataSet.colors = colorsList
+            pieDataSet.sliceSpace = 3f
+
             val pieData = PieData(pieDataSet)
             pieData.setDrawValues(true)
+            pieData.setValueFormatter(PercentFormatter())
+
 
             with(binding.pieChart){
+
                 setUsePercentValues(true)
                 description.text = ""
                 isDrawHoleEnabled = true
                 setHoleColor(Color.parseColor("#E6DDC4"))
                 setTouchEnabled(true)
                 setDrawEntryLabels(false)
-                setExtraOffsets(0f, 0f, 0f, 50f)
+                setExtraOffsets(5f, 10f, 5f, 50f)
+                animateY(1400, Easing.EaseInOutQuad)
+                transparentCircleRadius = 0f
                 isRotationEnabled = false
                 legend.orientation = Legend.LegendOrientation.VERTICAL
                 legend.isWordWrapEnabled = true
+                legend.form = Legend.LegendForm.CIRCLE
                 data = pieData
                 invalidate()
             }
