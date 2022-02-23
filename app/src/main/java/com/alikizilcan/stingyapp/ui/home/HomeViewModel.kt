@@ -23,9 +23,8 @@ class HomeViewModel @Inject constructor(
     private var _categoriesData: MutableLiveData<ArrayList<PieEntry>> = MutableLiveData()
     val categoriesData: LiveData<ArrayList<PieEntry>> = _categoriesData
 
-    var totalExpense: MutableLiveData<Double> = MutableLiveData(0.0)
-    var totalIncome: MutableLiveData<Double> = MutableLiveData(0.0)
-
+    private var _totalTransactions: MutableLiveData<Map<String, Double>> = MutableLiveData()
+    val totalTransactions: LiveData<Map<String, Double>> = _totalTransactions
 
     init {
         getBudget()
@@ -36,6 +35,9 @@ class HomeViewModel @Inject constructor(
     private fun getBudget() {
         viewModelScope.launch {
             homeUseCase.getBudget().collect {
+                if (it == null) {
+                    insertBudgetFirst()
+                }
                 _budget.value = it
             }
         }
@@ -52,9 +54,14 @@ class HomeViewModel @Inject constructor(
     private fun getTotalTransactions() {
         viewModelScope.launch {
             homeUseCase.getTotalTransactions().collect {
-                totalExpense.value = it["Expense"]
-                totalIncome.value = it["Income"]
+                _totalTransactions.value = it
             }
+        }
+    }
+
+    private fun insertBudgetFirst() {
+        viewModelScope.launch {
+            homeUseCase.insertBudgetFirst()
         }
     }
 }

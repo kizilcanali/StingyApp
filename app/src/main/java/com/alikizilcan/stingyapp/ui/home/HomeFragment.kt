@@ -1,5 +1,6 @@
 package com.alikizilcan.stingyapp.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.formatter.PercentFormatter
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -24,7 +26,6 @@ class HomeFragment : BaseFragment() {
     val binding get() = _binding
 
     override val viewModel: HomeViewModel by viewModels()
-
 
 
     override fun onCreateView(
@@ -65,18 +66,15 @@ class HomeFragment : BaseFragment() {
                 legend.orientation = Legend.LegendOrientation.HORIZONTAL
                 legend.isWordWrapEnabled = true
                 legend.form = Legend.LegendForm.CIRCLE
-
+                legend.textSize = 14f
                 data = pieData
                 invalidate()
             }
         }
-        viewModel.totalExpense.observe(viewLifecycleOwner){
-            binding.pieChart.centerText = "Exp: ${viewModel.totalExpense.value} \n Inc: ${viewModel.totalIncome.value}"
+        val df = DecimalFormat("#,###.00")
+        viewModel.totalTransactions.observe(viewLifecycleOwner) {
+            binding.pieChart.centerText =
+                "Exp: ${df.format(it["Expense"] ?: 0.0)} \n Inc: ${df.format(it["Income"] ?: 0.0)}"
         }
-        viewModel.totalIncome.observe(viewLifecycleOwner){
-            //if null check
-            binding.pieChart.centerText = "Exp: ${viewModel.totalExpense.value} \n Inc: ${viewModel.totalIncome.value}"
-        }
-
     }
 }

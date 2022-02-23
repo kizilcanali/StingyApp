@@ -34,4 +34,6 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
 
     suspend fun getTotalTransactions() = stingyDao.getTotalTransactions()
 
+    suspend fun insertBudgetFirst() = stingyDao.insertBudgetFirst()
+
 }

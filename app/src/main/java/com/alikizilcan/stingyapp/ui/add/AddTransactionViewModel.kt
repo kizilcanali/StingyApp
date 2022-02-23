@@ -2,8 +2,6 @@ package com.alikizilcan.stingyapp.ui.add
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
@@ -12,7 +10,6 @@ import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.*
 import com.alikizilcan.stingyapp.infra.base.BaseViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -26,7 +23,7 @@ class AddTransactionViewModel @Inject constructor(
     private val transactionUseCase: TransactionUseCase
 ) : BaseViewModel() {
 
-    val transactionCategories: List<Category> = Categoriesx.listOfCategories
+    val transactionCategories: List<Category> = CategoriesList.listOfCategories
     val isVisibleView: MutableLiveData<Boolean> = MutableLiveData(false)
     var name: MutableLiveData<String> = MutableLiveData()
     var amount: MutableLiveData<String> = MutableLiveData()
@@ -36,7 +33,6 @@ class AddTransactionViewModel @Inject constructor(
     var installmentCount: MutableLiveData<String> = MutableLiveData()
 
     private var _installmentsList: MutableLiveData<List<Installments>> = MutableLiveData()
-    val installmentsList: LiveData<List<Installments>> = _installmentsList
 
     private var _budget: Double = 0.0
     val budget get() = _budget
@@ -54,7 +50,7 @@ class AddTransactionViewModel @Inject constructor(
         viewModelScope.launch {
             val idValue = UUID.randomUUID()
             if (isVisibleView.value == false) {
-                setNewBudget(amount.value!!.toDouble())
+                amount.value?.let { setNewBudget(it.toDouble()) }
                 transactionUseCase.updateBudget(newBudget = budget)
                 _installmentsList.value = emptyList()
             } else {
@@ -85,7 +81,7 @@ class AddTransactionViewModel @Inject constructor(
                     transactionDate = date.value,
                     category = category.value,
                     transactionType = type.value,
-                    installments = installmentsList.value
+                    installments = _installmentsList.value
                 )
             )
             baseNavigation.navigate(navDirections)

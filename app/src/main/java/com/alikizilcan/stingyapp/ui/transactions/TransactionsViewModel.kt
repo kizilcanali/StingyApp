@@ -79,7 +79,13 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     }
 
     private fun fetchBudget() {
-        runBlocking { transactionUseCase.getBudget().collect { _budget = it } }
+        runBlocking {
+            transactionUseCase.getBudget().collect {
+                it.let {
+                    _budget = it
+                }
+            }
+        }
     }
 
     private fun deleteTransaction(transaction: Transaction) {

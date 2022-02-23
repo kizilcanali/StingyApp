@@ -11,7 +11,7 @@ class HomeUseCase @Inject constructor(
     private val homeRepository: HomeRepository,
     private val dataToPieEntry: DataToPieEntry
 ) {
-    suspend fun getBudget(): Flow<Double>{
+    suspend fun getBudget(): Flow<Double?>{
         return homeRepository.getBudget()
     }
 
@@ -24,4 +24,6 @@ class HomeUseCase @Inject constructor(
     suspend fun getTotalTransactions() : Flow<Map<String,Double>>{
         return homeRepository.getTotalTransactions()
     }
+
+    suspend fun insertBudgetFirst() = homeRepository.insertBudgetFirst()
 }

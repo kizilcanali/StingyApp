@@ -13,22 +13,13 @@
     <color name="red">#CE1212</color>
     <color name="red_dark">#810000</color>
     <color name="red_delete">#DA0037</color>
-    <color name="dark">#1B1717</color>
+    <color name="dark">#393E46</color>
     <color name="green">#34C759</color>
-    <color name="transaction_bg">#EEEBDD</color>
+    <color name="transaction_bg">#EEEEEE</color>
     <color name="textColor">#F0F0F0</color>
     <color name="button_bg">#F1D00A</color>
-    <color name="budget_bg">#181D31</color>
+    <color name="budget_bg">#222831</color>
     <color name="light_bg">#EDEDED</color>
-
-    <array name="pieChartColors">
-        <item>#304567</item>
-        <item>#309967</item>
-        <item>#476567</item>
-        <item>#890567</item>
-        <item>#a35567</item>
-        <item>#ff5f67</item>
-        <item>#3ca567</item>
-    </array>
+    <color name="light_blue">#00ADB5</color>
 
 </resources>

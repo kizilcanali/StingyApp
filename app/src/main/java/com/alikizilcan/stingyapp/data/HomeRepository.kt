@@ -8,7 +8,7 @@ class HomeRepository @Inject constructor(
     private val stingyLocalDataSource: StingyLocalDataSource
 ) {
 
-    suspend fun getBudget(): Flow<Double> = flow {
+    suspend fun getBudget(): Flow<Double?> = flow {
         emit(stingyLocalDataSource.getBudget())
     }
 
@@ -19,5 +19,7 @@ class HomeRepository @Inject constructor(
     suspend fun getTotalTransactions() : Flow<Map<String, Double>> = flow {
         emit(stingyLocalDataSource.getTotalTransactions())
     }
+
+    suspend fun insertBudgetFirst() = stingyLocalDataSource.insertBudgetFirst()
 
 }

@@ -1,32 +1,29 @@
 package com.alikizilcan.stingyapp.infra
 
-import android.graphics.Color
 import android.view.View
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.text.DecimalFormat
 
 @BindingAdapter("setVisibility")
 fun setVisibility(view: View, state:Boolean){
-    if(state){
-        view.visibility = View.VISIBLE
-    }else{
-        view.visibility = View.GONE
-    }
+    view.visibility = if(state) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("setFormatText")
-fun setFormatNumber(view: TextView, num: Double){
+fun setFormatNumber(view: TextView, num: Double?){
     val df = DecimalFormat("#,###.00")
-    view.text = df.format(num)
+    if (num != null)  view.text = df.format(num) else view.text = "0.0"
 }
 
-@BindingAdapter("setBudgetColor")
-fun setBudgetColor(view: TextView, amount: Double){
-    when {
-        amount > 0 -> view.setTextColor(Color.GREEN)
-        amount < 0 -> view.setTextColor(Color.RED)
-        else -> view.setTextColor(Color.BLACK)
+@BindingAdapter("setClickable")
+fun setClickable(view: View, state: String?){
+    view.isClickable = when(state){
+        "Income" -> false
+        "Expense" -> true
+        else -> false
     }
 }
+
 

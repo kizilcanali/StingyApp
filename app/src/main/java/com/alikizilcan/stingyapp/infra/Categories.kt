@@ -2,7 +2,7 @@ package com.alikizilcan.stingyapp.infra
 
 import com.alikizilcan.stingyapp.R
 
-object Categoriesx{
+object CategoriesList{
     val listOfCategories: List<Category> = listOf(
         Category("Fuel", R.drawable.ic_fuel, "#2EB086"),
         Category("Jewelry", R.drawable.ic_diamond, "#F6B8B8"),
@@ -14,27 +14,9 @@ object Categoriesx{
         Category("Sport", R.drawable.ic_sport, "#FE7E6D"),
         Category("Bill", R.drawable.ic_bill, "#008E89"),
         Category("Pet", R.drawable.ic_pet, "#CC9544"),
-        Category("Others", R.drawable.ic_transportation, "#93B5C6"),
+        Category("Others", R.drawable.ic_other, "#93B5C6"),
         Category("Gift", R.drawable.ic_gift, "#00B4D8"),
         Category("House", R.drawable.ic_house, "#595260"),
         Category("Car", R.drawable.ic_car, "#C3B091"),
     )
-}
-
-enum class Categories(transactionCategory: String){
-    TRANSPORTATION("Transportation"),
-    FUEL("Fuel"),
-    TECHNOLOGY("Technology"),
-    JEWELRY("Jewelry"),
-    FOODANDBEVERAGE("Food and Beverage"),
-    GROCERIES("Groceries"),
-    CLOTHING("Clothing"),
-    HEALTH("Health"),
-    SPORT("Sport"),
-    BILL("Bill"),
-    PET("Pet"),
-    OTHERS("Others"),
-    GIFT("Gift"),
-    HOUSE("House"),
-    CAR("Car"),
 }

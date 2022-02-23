@@ -10,11 +10,11 @@ class TransactionEntityToTransactionMapper @Inject constructor(){
     fun mapFromTransactionEntity(entity: TransactionsEntity) : Transaction {
         return Transaction(
             id = entity.id,
-            transactionName = entity.transactionName.orEmpty(),
+            transactionName = entity.transactionName,
             transactionAmount = entity.transactionAmount.orZero(),
-            transactionDate = entity.transactionDate.orEmpty(),
-            category = entity.transactionCategory.orEmpty(),
-            transactionType = entity.transactionType.orEmpty(),
+            transactionDate = entity.transactionDate,
+            category = entity.transactionCategory,
+            transactionType = entity.transactionType,
             installments = entity.installments!!.toUIModel()
         )
     }

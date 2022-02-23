@@ -52,4 +52,7 @@ interface StingyDao {
     @MapInfo(keyColumn = "type", valueColumn = "transactionAmount")
     @Query("SELECT type, SUM(transaction_amount) as transactionAmount FROM transactions GROUP BY type")
     suspend fun getTotalTransactions() : Map<String, Double>
+
+    @Query("INSERT INTO user_entity (budget) VALUES (0)")
+    suspend fun insertBudgetFirst()
 }
