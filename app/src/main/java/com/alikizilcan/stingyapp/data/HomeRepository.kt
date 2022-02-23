@@ -15,4 +15,9 @@ class HomeRepository @Inject constructor(
     suspend fun getTotalTransactionByCategory() : Flow<Map<String,Double>> = flow{
         emit(stingyLocalDataSource.getTotalTransactionByCategory())
     }
+
+    suspend fun getTotalTransactions() : Flow<Map<String, Double>> = flow {
+        emit(stingyLocalDataSource.getTotalTransactions())
+    }
+
 }

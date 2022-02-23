@@ -32,5 +32,6 @@ class StingyLocalDataSource @Inject constructor(private val stingyDao: StingyDao
 
     suspend fun getTotalTransactionByCategory() = stingyDao.getTotalTransactionByCategory()
 
+    suspend fun getTotalTransactions() = stingyDao.getTotalTransactions()
 
 }

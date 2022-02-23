@@ -6,7 +6,7 @@
     <string name="tl_text">TL</string>
     <string name="transaction_input">Transaction Name</string>
     <string name="amount_input">Amount</string>
-    <string name="installment_input">Installment</string>
+    <string name="installment_input">Pay With Installment</string>
     <string name="months">Months</string>
     <string name="transaction_type">Type</string>
     <string name="category_input">Category</string>

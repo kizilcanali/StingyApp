@@ -1,11 +1,12 @@
 package com.alikizilcan.stingyapp.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.alikizilcan.stingyapp.R
 import com.alikizilcan.stingyapp.databinding.FragmentHomeBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.colorsList
@@ -24,6 +25,8 @@ class HomeFragment : BaseFragment() {
 
     override val viewModel: HomeViewModel by viewModels()
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,8 +41,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.categoriesData.observe(viewLifecycleOwner){ list ->
-
+        viewModel.categoriesData.observe(viewLifecycleOwner) { list ->
             val pieDataSet = PieDataSet(list, "")
             pieDataSet.valueTextSize = 12f
             pieDataSet.colors = colorsList
@@ -49,25 +51,32 @@ class HomeFragment : BaseFragment() {
             pieData.setDrawValues(true)
             pieData.setValueFormatter(PercentFormatter())
 
-
-            with(binding.pieChart){
-
+            with(binding.pieChart) {
                 setUsePercentValues(true)
                 description.text = ""
                 isDrawHoleEnabled = true
-                setHoleColor(Color.parseColor("#E6DDC4"))
+                setHoleColor(ContextCompat.getColor(requireContext(), R.color.transaction_bg))
                 setTouchEnabled(true)
                 setDrawEntryLabels(false)
-                setExtraOffsets(5f, 10f, 5f, 50f)
+                setExtraOffsets(5f, 10f, 5f, 10f)
                 animateY(1400, Easing.EaseInOutQuad)
                 transparentCircleRadius = 0f
                 isRotationEnabled = false
-                legend.orientation = Legend.LegendOrientation.VERTICAL
+                legend.orientation = Legend.LegendOrientation.HORIZONTAL
                 legend.isWordWrapEnabled = true
                 legend.form = Legend.LegendForm.CIRCLE
+
                 data = pieData
                 invalidate()
             }
         }
+        viewModel.totalExpense.observe(viewLifecycleOwner){
+            binding.pieChart.centerText = "Exp: ${viewModel.totalExpense.value} \n Inc: ${viewModel.totalIncome.value}"
+        }
+        viewModel.totalIncome.observe(viewLifecycleOwner){
+            //if null check
+            binding.pieChart.centerText = "Exp: ${viewModel.totalExpense.value} \n Inc: ${viewModel.totalIncome.value}"
+        }
+
     }
 }

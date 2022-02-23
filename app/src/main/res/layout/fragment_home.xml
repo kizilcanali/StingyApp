@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.alikizilcan.stingyapp.ui.home.HomeViewModel" />
@@ -14,9 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment"
         android:background="@color/transaction_bg"
-        >
+        tools:context=".ui.home.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutTop"
@@ -31,10 +29,10 @@
 
             <TextView
                 android:id="@+id/budgetText"
+                setFormatText="@{viewModel.budget}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif-monospace"
-                setFormatText="@{viewModel.budget}"
                 android:textColor="@color/white"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,17 +45,14 @@
                 android:id="@+id/tlIconText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:text="@string/tl_icon_text"
                 android:textColor="@color/white"
-                android:fontFamily="serif-monospace"
+                android:textSize="18sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/budgetText"
-                app:layout_constraintStart_toEndOf="@id/budgetText"
-                />
+                app:layout_constraintStart_toEndOf="@id/budgetText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
@@ -66,9 +61,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayoutTop"
-            />
-
-
+            app:layout_constraintTop_toBottomOf="@id/constraintLayoutTop" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

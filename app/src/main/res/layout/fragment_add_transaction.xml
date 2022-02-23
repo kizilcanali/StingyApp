@@ -12,25 +12,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#212529"
         android:paddingHorizontal="25dp"
-        android:paddingVertical="10dp"
+        android:paddingVertical="100dp"
         tools:context=".ui.add.AddTransactionFragment"
-        android:background="@color/dark"
         >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionNameInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/transaction_input"
+            app:boxBackgroundColor="@color/transaction_bg"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:startIconDrawable="@drawable/ic_payment"
-            app:boxBackgroundColor="@color/transaction_bg">
+            >
+
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,16 +44,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionAmountInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
+            app:hintTextColor="@color/red_dark"
+            app:boxStrokeColor="@color/transaction_bg"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/amount_input"
+            app:boxBackgroundColor="@color/transaction_bg"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionNameInput"
             app:startIconDrawable="@drawable/ic_amount"
-            app:boxBackgroundColor="@color/transaction_bg">
+            android:layout_marginTop="5dp"
+            >
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -61,41 +67,37 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/transactionDateInputButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/selectDateButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/transaction_bg"
+            android:drawableEnd="@drawable/ic_date"
+            android:text="@{viewModel.date}"
+            android:textColor="@color/dark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/installmentMonthInput"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Will Be Date Picker Button"
+            android:layout_marginTop="5dp"
             />
-        <TextView
-            android:id="@+id/showDateText"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="@={viewModel.date}"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/transactionDateInputButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/transaction_bg"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionCategoryInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="@string/category_input"
+            app:boxBackgroundColor="@color/transaction_bg"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionAmountInput"
-            app:boxBackgroundColor="@color/transaction_bg">
+            android:layout_marginTop="5dp"
+            >
 
             <AutoCompleteTextView
                 android:id="@+id/categoryList"
@@ -109,18 +111,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/transactionType"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/transaction_type"
+            app:boxBackgroundColor="@color/transaction_bg"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:layout_constraintEnd_toStartOf="@id/hasInstallmentCheck"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionCategoryInput"
             app:startIconDrawable="@drawable/ic_transactions"
-            app:boxBackgroundColor="@color/transaction_bg">
+            android:layout_marginTop="5dp"
+            >
 
             <AutoCompleteTextView
                 android:id="@+id/typeList"
@@ -132,32 +136,33 @@
 
         <CheckBox
             android:id="@+id/hasInstallmentCheck"
-            android:layout_width="0dp"
+            android:layout_width="130dp"
             android:layout_height="0dp"
+            android:buttonTint="@color/transaction_bg"
             android:checked="@={viewModel.isVisibleView}"
             android:text="@string/installment_input"
+            android:textAlignment="center"
+            android:textColor="@color/transaction_bg"
             app:layout_constraintBottom_toBottomOf="@id/transactionType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/transactionType"
-            app:layout_constraintTop_toTopOf="@id/transactionType"
-            android:buttonTint="@color/transaction_bg"
-            android:textColor="@color/transaction_bg"
-            />
+            app:layout_constraintTop_toTopOf="@id/transactionType" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/installmentMonthInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxCornerRadiusBottomEnd="15dp"
             setVisibility="@{viewModel.isVisibleView}"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="@string/months"
+            app:boxBackgroundColor="@color/transaction_bg"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/transactionType"
             app:startIconDrawable="@drawable/ic_month"
-            app:boxBackgroundColor="@color/transaction_bg">
+            android:layout_marginTop="5dp">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -166,17 +171,17 @@
                 android:text="@={viewModel.installmentCount}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <Button
             android:id="@+id/saveButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red_dark"
             android:text="@string/save_button_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="#EDEDED"
-             />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

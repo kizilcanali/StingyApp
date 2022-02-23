@@ -49,4 +49,7 @@ interface StingyDao {
     @Query("SELECT category, SUM(transaction_amount) as totalAmount FROM transactions WHERE type = 'Expense' GROUP BY category ")
     suspend fun getTotalTransactionByCategory() : Map<String, Double>
 
+    @MapInfo(keyColumn = "type", valueColumn = "transactionAmount")
+    @Query("SELECT type, SUM(transaction_amount) as transactionAmount FROM transactions GROUP BY type")
+    suspend fun getTotalTransactions() : Map<String, Double>
 }

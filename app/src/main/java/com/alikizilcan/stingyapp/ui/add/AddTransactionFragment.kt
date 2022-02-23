@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.alikizilcan.stingyapp.databinding.FragmentAddTransactionBinding
 import com.alikizilcan.stingyapp.infra.base.BaseFragment
 import com.alikizilcan.stingyapp.infra.di.TYPE
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,13 +34,28 @@ class AddTransactionFragment : BaseFragment() {
     }
 
     private fun setupWm() {
-        binding.transactionDateInputButton.setOnClickListener {
+        binding.selectDateButton.setOnClickListener {
             viewModel.setupDate(requireContext())
         }
+
         binding.saveButton.setOnClickListener {
-            viewModel.addTransaction(
-                navDirections = AddTransactionFragmentDirections.actionAddTransactionFragmentToTransactionsFragment()
-            )
+            if (
+                with(viewModel) {
+                    name.value != null
+                    amount.value != null
+                    date.value != null
+                    category.value != null
+                    type.value != null
+                    isVisibleView.value == false || installmentCount.value != null
+                }
+            ) {
+                viewModel.addTransaction(
+                    navDirections = AddTransactionFragmentDirections.actionAddTransactionFragmentToTransactionsFragment()
+                )
+            }else{
+                val snack = Snackbar.make(requireView(), "Lütfen Tüm Alanları Doldurunuz!", Snackbar.LENGTH_LONG)
+                snack.show()
+            }
         }
     }
 

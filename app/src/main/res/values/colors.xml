@@ -19,6 +19,7 @@
     <color name="textColor">#F0F0F0</color>
     <color name="button_bg">#F1D00A</color>
     <color name="budget_bg">#181D31</color>
+    <color name="light_bg">#EDEDED</color>
 
     <array name="pieChartColors">
         <item>#304567</item>

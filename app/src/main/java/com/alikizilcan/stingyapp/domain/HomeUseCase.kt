@@ -20,4 +20,8 @@ class HomeUseCase @Inject constructor(
             dataToPieEntry.mapFromData(it)
         }
     }
+
+    suspend fun getTotalTransactions() : Flow<Map<String,Double>>{
+        return homeRepository.getTotalTransactions()
+    }
 }

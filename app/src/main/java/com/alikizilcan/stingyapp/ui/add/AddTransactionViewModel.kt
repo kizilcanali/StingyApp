@@ -2,6 +2,7 @@ package com.alikizilcan.stingyapp.ui.add
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,7 @@ import com.alikizilcan.stingyapp.domain.model.Installments
 import com.alikizilcan.stingyapp.domain.model.Transaction
 import com.alikizilcan.stingyapp.infra.*
 import com.alikizilcan.stingyapp.infra.base.BaseViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -56,22 +58,24 @@ class AddTransactionViewModel @Inject constructor(
                 transactionUseCase.updateBudget(newBudget = budget)
                 _installmentsList.value = emptyList()
             } else {
-                val monthlyPayment =
-                    (amount.value!!.toDouble() / installmentCount.value!!.toInt())
-                for (i in 1..installmentCount.value!!.toInt()) {
-                    transactionUseCase.insertInstallment(
-                        Installments(
-                            name = name.value!!,
-                            installmentCount = installmentCount.value!!.toInt(),
-                            monthlyPayment = monthlyPayment,
-                            date = setupInstallmentMonths(i - 1, date.value!!),
-                            isPaid = isPaid.value!!.toInt(),
-                            connectorId = idValue,
-                            id = 0
+                if (installmentCount.value != null) {
+                    val monthlyPayment =
+                        (amount.value!!.toDouble() / installmentCount.value!!.toInt())
+                    for (i in 1..installmentCount.value!!.toInt()) {
+                        transactionUseCase.insertInstallment(
+                            Installments(
+                                name = name.value!!,
+                                installmentCount = installmentCount.value!!.toInt(),
+                                monthlyPayment = monthlyPayment,
+                                date = setupInstallmentMonths(i - 1, date.value!!),
+                                isPaid = isPaid.value!!.toInt(),
+                                connectorId = idValue,
+                                id = 0
+                            )
                         )
-                    )
+                    }
+                    fetchInstallments(idValue)
                 }
-                fetchInstallments(idValue)
             }
             transactionUseCase.insertTransaction(
                 Transaction(
@@ -92,7 +96,6 @@ class AddTransactionViewModel @Inject constructor(
         val userDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         return userDate.plusMonths(index.toLong()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
     }
-
     private fun setNewBudget(amount: Double) {
         when (type.value) {
             "Expense" -> {
@@ -101,12 +104,8 @@ class AddTransactionViewModel @Inject constructor(
             "Income" -> {
                 _budget += amount
             }
-            else -> {
-                //show snackbar!!
-            }
         }
     }
-
     fun setupDate(context: Context) {
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
@@ -120,7 +119,6 @@ class AddTransactionViewModel @Inject constructor(
         )
         pickerDialog.show()
     }
-
     private suspend fun fetchInstallments(connectionId: UUID) {
         transactionUseCase.getInstallments(connectionId).collect {
             _installmentsList.value = it

@@ -88,7 +88,6 @@ class TransactionsAdapter @Inject constructor() :
             holder.installmentsRecyclerView.adapter = installmentsAdapter
         }
         installmentsAdapter.itemCheckBoxListener = itemCheckBoxListener
-        installmentsAdapter.categoryKey = getItem(position).category!!
     }
 
     companion object {
