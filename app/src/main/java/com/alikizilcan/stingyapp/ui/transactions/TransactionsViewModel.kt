@@ -57,7 +57,7 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
 
     private fun setBudget(amount: Double, state: Int) {
         viewModelScope.launch {
-            if(state == 1){
+            if (state == 1) {
                 _budget -= amount
             } else {
                 _budget += amount
@@ -67,7 +67,7 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
     }
 
     private suspend fun updateIsPaid(isPaidParameter: Int, id: Long) {
-            transactionUseCase.updateIsPaid(isPaidParameter, id)
+        transactionUseCase.updateIsPaid(isPaidParameter, id)
     }
 
     private fun fetchTransactions() {
@@ -92,7 +92,33 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         viewModelScope.launch {
             _transactionsList.value?.remove(transaction)
             transactionUseCase.deleteTransaction(transaction)
-            val updateBudget = _budget - transaction.transactionAmount!!
+            println(transaction.installments)
+            var updateBudget = 0.0
+            if (_budget < 0) {
+                if (transaction.installments != emptyList<Installments>()) {
+                    var isPaidAmount = 0.0
+                    for (i in transaction.installments!!) {
+                        if (i.isPaid == 1) {
+                            isPaidAmount += i.monthlyPayment
+                        }
+                    }
+                    updateBudget = _budget + isPaidAmount
+                } else if(transaction.installments == emptyList<Installments>()) {
+                    updateBudget = _budget + transaction.transactionAmount!!
+                }
+            } else {
+                if(transaction.installments != emptyList<Installments>()){
+                    var isPaidBelow = 0.0
+                    for (i in transaction.installments!!) {
+                        if (i.isPaid == 1) {
+                            isPaidBelow += i.monthlyPayment
+                        }
+                    }
+                    updateBudget = _budget - isPaidBelow
+                }else if(transaction.installments == emptyList<Installments>()){
+                    updateBudget = _budget - transaction.transactionAmount!!
+                }
+            }
             transactionUseCase.updateBudget(updateBudget)
         }
     }

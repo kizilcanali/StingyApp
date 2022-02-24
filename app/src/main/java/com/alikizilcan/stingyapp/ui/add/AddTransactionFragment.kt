@@ -39,22 +39,15 @@ class AddTransactionFragment : BaseFragment() {
         }
 
         binding.saveButton.setOnClickListener {
-            if (
-                with(viewModel) {
-                    name.value != null
-                    amount.value != null
-                    date.value != null
-                    category.value != null
-                    type.value != null
-                    isVisibleView.value == false || installmentCount.value != null
-                }
-            ) {
+            if(viewModel.name.value != null
+                && viewModel.amount.value != null
+                && viewModel.date.value != null
+                && viewModel.category.value != null
+                && viewModel.type.value != null
+                && (viewModel.isVisibleView.value == false || viewModel.installmentCount.value != null)){
                 viewModel.addTransaction(
                     navDirections = AddTransactionFragmentDirections.actionAddTransactionFragmentToTransactionsFragment()
                 )
-            }else{
-                val snack = Snackbar.make(requireView(), "Lütfen Tüm Alanları Doldurunuz!", Snackbar.LENGTH_LONG)
-                snack.show()
             }
         }
     }
@@ -68,5 +61,4 @@ class AddTransactionFragment : BaseFragment() {
             DropdownTypeAdapter(requireContext(), listOf(TYPE.INCOME, TYPE.EXPENSE))
         binding.typeList.setAdapter(dropdownTypeAdapter)
     }
-
 }
