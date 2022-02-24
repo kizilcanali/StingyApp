@@ -48,6 +48,9 @@ class AddTransactionFragment : BaseFragment() {
                 viewModel.addTransaction(
                     navDirections = AddTransactionFragmentDirections.actionAddTransactionFragmentToTransactionsFragment()
                 )
+            } else {
+                val snack = Snackbar.make(requireView(), "Fill All Blanks", Snackbar.LENGTH_LONG)
+                snack.show()
             }
         }
     }

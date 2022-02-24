@@ -50,11 +50,13 @@ class AddTransactionViewModel @Inject constructor(
         viewModelScope.launch {
             val idValue = UUID.randomUUID()
             if (isVisibleView.value == false) {
-                amount.value?.let { setNewBudget(it.toDouble()) }
+                if (amount.value != null || amount.value != "") {
+                    setNewBudget(amount.value!!.toDouble())
+                }
                 transactionUseCase.updateBudget(newBudget = budget)
                 _installmentsList.value = emptyList()
             } else {
-                if (installmentCount.value != null) {
+                if (installmentCount.value != null || installmentCount.value != "") {
                     val monthlyPayment =
                         (amount.value!!.toDouble() / installmentCount.value!!.toInt())
                     for (i in 1..installmentCount.value!!.toInt()) {
@@ -92,6 +94,7 @@ class AddTransactionViewModel @Inject constructor(
         val userDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         return userDate.plusMonths(index.toLong()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
     }
+
     private fun setNewBudget(amount: Double) {
         when (type.value) {
             "Expense" -> {
@@ -102,6 +105,7 @@ class AddTransactionViewModel @Inject constructor(
             }
         }
     }
+
     fun setupDate(context: Context) {
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
@@ -115,6 +119,7 @@ class AddTransactionViewModel @Inject constructor(
         )
         pickerDialog.show()
     }
+
     private suspend fun fetchInstallments(connectionId: UUID) {
         transactionUseCase.getInstallments(connectionId).collect {
             _installmentsList.value = it

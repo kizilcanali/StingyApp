@@ -92,30 +92,33 @@ class TransactionsViewModel @Inject constructor(private val transactionUseCase: 
         viewModelScope.launch {
             _transactionsList.value?.remove(transaction)
             transactionUseCase.deleteTransaction(transaction)
-            println(transaction.installments)
             var updateBudget = 0.0
+
             if (_budget < 0) {
-                if (transaction.installments != emptyList<Installments>()) {
+                if (transaction.installments!!.isNotEmpty()) {
                     var isPaidAmount = 0.0
-                    for (i in transaction.installments!!) {
+                    for (i in transaction.installments) {
                         if (i.isPaid == 1) {
                             isPaidAmount += i.monthlyPayment
                         }
                     }
                     updateBudget = _budget + isPaidAmount
-                } else if(transaction.installments == emptyList<Installments>()) {
+                } else if(transaction.installments.isEmpty() && transaction.transactionType == "Expense") {
                     updateBudget = _budget + transaction.transactionAmount!!
+
+                } else if(transaction.installments == emptyList<Installments>() && transaction.transactionType == "Income"){
+                    updateBudget = _budget - transaction.transactionAmount!!
                 }
             } else {
-                if(transaction.installments != emptyList<Installments>()){
+                if(!transaction.installments.isNullOrEmpty()){
                     var isPaidBelow = 0.0
-                    for (i in transaction.installments!!) {
+                    for (i in transaction.installments) {
                         if (i.isPaid == 1) {
                             isPaidBelow += i.monthlyPayment
                         }
                     }
                     updateBudget = _budget - isPaidBelow
-                }else if(transaction.installments == emptyList<Installments>()){
+                }else if(transaction.installments!!.isEmpty()){
                     updateBudget = _budget - transaction.transactionAmount!!
                 }
             }
